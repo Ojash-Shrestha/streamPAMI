@@ -1,0 +1,7 @@
+﻿.idea/
+.venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+review_*.txt
+*.patch
