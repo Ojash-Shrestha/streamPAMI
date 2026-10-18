@@ -2,6 +2,14 @@
 
 Tail pruning uses the two strict inequalities in Section 3.5; strictness is required by condition (3.1). A new itemset is inserted only when its batch frequency is strictly greater than epsilon times batch size, following Algorithm 1. Query output includes estimates equal to (sigma - epsilon) times the period size; the inclusive boundary preserves no-false-negative recall.
 
+Threshold comparisons use exact decimal fractions internally. The public
+minSup and epsilon attributes retain their floating-point values.
+
+Known failure pending a pruning decision: with uneven batch sizes, prefix sums
+starting at the newest frame can cause false negatives for periods starting
+at older frames. The strict expected-failure test records this limitation;
+the tail-pruning condition remains the confirmed condition (3.1).
+
 Importing this algorithm into a python program::
 
     from streamPAMI.frequentPattern.basic.FPStream import FPStream
@@ -12,7 +20,7 @@ Importing this algorithm into a python program::
 from __future__ import annotations
 
 from collections import Counter
-from itertools import combinations
+from fractions import Fraction
 from time import perf_counter
 
 from .abstract import _streamFrequentPatterns
@@ -28,6 +36,8 @@ class FPStream(_streamFrequentPatterns):
             raise ValueError("epsilon must be a float in (0, minSup)")
         if not isinstance(batchSize, int) or batchSize < 1:
             raise ValueError("batchSize must be a positive integer")
+        self._min_sup = Fraction(str(minSup))
+        self._epsilon = Fraction(str(epsilon))
         super().__init__(iFile, float(minSup), float(epsilon), batchSize, sep)
         self._frames = []  # newest first: [start, end, transaction weight]
         self._tables = {}  # itemset -> support per visible frame, newest first
@@ -60,14 +70,14 @@ class FPStream(_streamFrequentPatterns):
     def _tail_prune(self, table):
         weights = self.getFrameWeights()
         for m in range(len(table)):
-            if not all(table[i] < self.minSup * weights[i] for i in range(m, len(table))):
+            if not all(table[i] < self._min_sup * weights[i] for i in range(m, len(table))):
                 continue
             support_sum = weight_sum = 0
             safe = True
             for i in range(len(table)):
                 support_sum += table[i]
                 weight_sum += weights[i]
-                if i >= m and not support_sum < self.epsilon * weight_sum:
+                if i >= m and not support_sum < self._epsilon * weight_sum:
                     safe = False
                     break
             if safe:
@@ -75,8 +85,13 @@ class FPStream(_streamFrequentPatterns):
                 return
 
     @staticmethod
-    def _batch_counts(transactions, threshold):
-        """Build an FP-tree and mine all conditional pattern bases."""
+    def _batch_counts(transactions, threshold, tracked):
+        """Mine new qualifying patterns and exact counts for tracked patterns.
+
+        The transaction tree includes every item. Type I pruning applies only
+        to patterns absent from the stream structure, including conditional
+        extensions whose support is below the batch threshold.
+        """
         item_counts = Counter(item for tx in transactions for item in set(tx))
         order = {item: rank for rank, (item, _) in enumerate(
             sorted(item_counts.items(), key=lambda pair: (-pair[1], pair[0])))}
@@ -105,9 +120,9 @@ class FPStream(_streamFrequentPatterns):
         def grow(tree_root, header, suffix, threshold):
             for item in sorted(header, key=lambda value: (item_counts.get(value, 0), value)):
                 support = sum(node.count for node in header[item])
-                if support < threshold:
-                    continue
                 pattern = tuple(sorted(suffix + (item,)))
+                if pattern not in tracked and support <= threshold:
+                    continue
                 mined[pattern] = support
                 paths = []
                 for leaf in header[item]:
@@ -124,7 +139,8 @@ class FPStream(_streamFrequentPatterns):
                     conditional_counts.update({value: count for value in path})
                 conditional_root = Node()
                 conditional_header = {value: [] for value in conditional_counts
-                                      if conditional_counts[value] >= threshold}
+                                      if conditional_counts[value] > threshold
+                                      or tuple(sorted(suffix + (item, value))) in tracked}
                 for path, count in paths:
                     node = conditional_root
                     kept = sorted((value for value in path if value in conditional_header),
@@ -141,6 +157,13 @@ class FPStream(_streamFrequentPatterns):
         grow(root, headers, tuple(), threshold)
         return mined
 
+    def _drop_pattern_and_supersets(self, pattern):
+        """Apply Type II removal to the itemset and every tracked superset."""
+        items = set(pattern)
+        for candidate in list(self._tables):
+            if items.issubset(candidate):
+                del self._tables[candidate]
+
     def processBatch(self, transactions: list[list[str]]):
         if not isinstance(transactions, list):
             raise TypeError("transactions must be a list of transactions")
@@ -148,7 +171,7 @@ class FPStream(_streamFrequentPatterns):
         if not clean:
             raise ValueError("a batch must contain at least one transaction")
         started = perf_counter()
-        counts = self._batch_counts(clean, self.epsilon * len(clean))
+        counts = self._batch_counts(clean, self._epsilon * len(clean), self._tables)
         old_frame_count = len(self._frames)
         # The full-tree scan begins by recording zero for the newly arrived batch.
         updated = set()
@@ -159,7 +182,7 @@ class FPStream(_streamFrequentPatterns):
         self._frames.insert(0, [self._batch_count, self._batch_count + 1, len(clean)])
         self._merge_frames()
 
-        threshold = self.epsilon * len(clean)
+        threshold = self._epsilon * len(clean)
         type_two_blocked = set()
         for pattern, frequency in sorted(counts.items(), key=lambda pair: (len(pair[0]), pair[0])):
             if any(set(blocked).issubset(pattern) for blocked in type_two_blocked):
@@ -171,6 +194,7 @@ class FPStream(_streamFrequentPatterns):
                 self._tail_prune(table)
                 if not table:
                     type_two_blocked.add(pattern)
+                    self._drop_pattern_and_supersets(pattern)
             elif frequency > threshold:
                 self._tables[pattern] = [frequency] + [0] * (len(self._frames) - 1)
                 updated.add(pattern)
@@ -179,13 +203,15 @@ class FPStream(_streamFrequentPatterns):
                 type_two_blocked.add(pattern)
 
         # Patterns absent from the batch retain the zero inserted above.
-        for pattern, table in list(self._tables.items()):
+        for pattern in sorted(list(self._tables), key=lambda value: (len(value), value)):
+            if pattern not in self._tables:
+                continue
+            table = self._tables[pattern]
             if pattern not in updated:
                 self._tail_prune(table)
             if not table:
-                del self._tables[pattern]
+                self._drop_pattern_and_supersets(pattern)
         self._batch_count += 1
-        self._patterns = self.queryPatterns()
         self._capture_metrics(started)
 
     def queryPatterns(self, startFrame=0, endFrame=None):
@@ -201,7 +227,7 @@ class FPStream(_streamFrequentPatterns):
         result = {}
         for pattern, table in self._tables.items():
             estimate = sum(table[startFrame:min(endFrame, len(table))]) if startFrame < len(table) else 0
-            if estimate >= (self.minSup - self.epsilon) * period_weight:
+            if estimate >= (self._min_sup - self._epsilon) * period_weight:
                 result[pattern] = estimate
         return result
 

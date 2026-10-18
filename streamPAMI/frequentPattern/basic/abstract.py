@@ -7,18 +7,9 @@ from pathlib import Path
 from time import perf_counter
 from urllib.request import urlopen
 
-try:
-    import pandas as pd
-except ImportError:  # pandas remains an installation dependency for DataFrame input.
-    pd = None
-try:
-    import psutil
-except ImportError:  # Metrics are best effort when psutil is unavailable.
-    psutil = None
-try:
-    import validators
-except ImportError:  # URL recognition has a standard-library fallback.
-    validators = None
+import pandas as pd
+import psutil
+import validators
 
 
 class _streamFrequentPatterns(ABC):
@@ -47,12 +38,13 @@ class _streamFrequentPatterns(ABC):
     def save(self, oFile):
         with open(oFile, "w", encoding="utf-8") as output:
             for pattern, support in self._patterns.items():
-                output.write("\t".join(pattern) + ":" + str(support) + "\n")
+                output.write(self.sep.join(pattern) + ":" + str(support) + "\n")
 
     def getPatternsAsDataFrame(self):
-        if pd is None:
-            raise ImportError("pandas is required for getPatternsAsDataFrame")
-        return pd.DataFrame([{"pattern": p, "support": s} for p, s in self._patterns.items()], columns=["pattern", "support"])
+        return pd.DataFrame(
+            [(self.sep.join(pattern), support) for pattern, support in self._patterns.items()],
+            columns=["Patterns", "Support"],
+        )
 
     def getMemoryUSS(self):
         return self._memory_uss
@@ -71,7 +63,7 @@ class _streamFrequentPatterns(ABC):
 
     def _iter_transactions(self):
         source = self.iFile
-        if pd is not None and isinstance(source, pd.DataFrame):
+        if isinstance(source, pd.DataFrame):
             if "Transactions" not in source.columns:
                 raise ValueError("DataFrame input must contain a 'Transactions' column")
             for row in source["Transactions"]:
@@ -79,7 +71,7 @@ class _streamFrequentPatterns(ABC):
             return
         if isinstance(source, (str, Path)):
             value = str(source)
-            is_url = bool(validators.url(value)) if validators is not None else value.startswith(("http://", "https://"))
+            is_url = bool(validators.url(value))
             if is_url:
                 with urlopen(value) as response:
                     yield from self._parse_lines(line.decode("utf-8") for line in response)
@@ -100,10 +92,9 @@ class _streamFrequentPatterns(ABC):
 
     def _capture_metrics(self, started):
         self._runtime = perf_counter() - started
-        if psutil is not None:
-            process = psutil.Process()
-            try:
-                self._memory_uss = process.memory_full_info().uss
-            except (AttributeError, psutil.Error):
-                self._memory_uss = 0
-            self._memory_rss = process.memory_info().rss
+        process = psutil.Process()
+        try:
+            self._memory_uss = process.memory_full_info().uss
+        except (AttributeError, psutil.Error):
+            self._memory_uss = 0
+        self._memory_rss = process.memory_info().rss
