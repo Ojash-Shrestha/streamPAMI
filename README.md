@@ -10,6 +10,7 @@
 - [Development Workflow of an Algorithm in streamPAMI](#development-workflow-of-an-algorithm-in-streampami)
 - [Inputs and Outputs of an Algorithm in streamPAMI](#inputs-and-outputs-of-an-algorithm-in-streampami)
 - [Accuracy Guarantees](#accuracy-guarantees)
+- [Evaluation](#evaluation)
 - [Features](#features)
 - [Maintenance](#maintenance)
 - [Try your first streamPAMI program](#try-your-first-streampami-program)
@@ -107,6 +108,79 @@ recent batches are much larger than older ones. A reproducible case is recorded 
 denominator; blank lines in files and URLs are skipped. Its tree retains the window's
 transactions, compressed by shared prefixes, so memory grows with the window and its per-node
 batch counts; it has no epsilon-bounded summary.
+
+***
+
+# Evaluation
+
+The stream is queried after every batch of 10,000 transactions. FP-Stream queries
+the whole stream so far, with epsilon = 0.1 * minSup; DSTree queries its sliding
+window of three batches. Each is compared with exact FP-growth from PAMI,
+re-mined after every batch over the same horizon with integer support threshold
+ceil(minSup * W). We use minSup values 0.006, 0.007, 0.008, 0.009 and 0.010, with
+three repetitions in fresh subprocesses per method and configuration. The plots
+show final pattern counts, median total runtime across all ten batches, and the
+maximum process peak memory across the three repetitions.
+
+Dataset: [T10I4D100K](https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv).
+The supplied file contains 99,935 transactions, so the final batch contains 9,935;
+all thresholds use actual transaction counts. Dataset reading is excluded from
+runtime. Baseline runtime includes preparing its temporary input file at each
+batch. Memory includes imports, the preloaded dataset, tree state and retained
+answers for validation, in decimal MB.
+
+| Machine / software | Captured value |
+|---|---|
+| OS | Windows-10-10.0.26200-SP0 |
+| CPU | Intel(R) Core(TM) i7-14650HX, 24 logical CPUs |
+| RAM | 34.049 GB |
+| Python | 3.11.9 |
+| pandas | 3.0.6 |
+| PAMI | 2026.10.13.1 |
+| streamPAMI commit measured | `cb5493c1f815250717d1810ff82e25905b933ca7` |
+
+### FP-Stream: whole stream
+
+FP-Stream returned more patterns than the exact baseline at every setting, as
+its query threshold also admits candidates below minSup. Its median runtime
+was higher than PAMI's at minSup 0.006, 0.007 and 0.008, and lower at 0.009 and
+0.010. Its peak process memory was lower at all five settings on this machine.
+
+![FP-Stream and exact FP-growth: final pattern counts](./images/fpstream_patterns.png)
+
+![FP-Stream and exact FP-growth: total runtime](./images/fpstream_runtime.png)
+
+![FP-Stream and exact FP-growth: peak memory](./images/fpstream_memory.png)
+
+### DSTree: last three batches
+
+DSTree's pattern sets and supports matched PAMI after every batch in all
+repetitions. Its median runtime was higher at every minSup. Peak process memory
+was slightly lower than PAMI's at 0.006–0.009 and slightly higher at 0.010.
+Timings varied between repetitions; the CSVs retain that variation.
+
+![DSTree and exact FP-growth: final pattern counts](./images/dstree_patterns.png)
+
+![DSTree and exact FP-growth: total runtime](./images/dstree_runtime.png)
+
+![DSTree and exact FP-growth: peak memory](./images/dstree_memory.png)
+
+### FP-Stream precision and recall
+
+Final recall was 1.0 at every minSup in every repetition. Precision ranged from
+0.8257 to 0.9145; the additional patterns account for the difference from 1.0.
+
+![FP-Stream: final precision and recall against exact FP-growth](./images/fpstream_precision_recall.png)
+
+Reproduce from the repository root with the project's `.venv` activated and the
+`bench` extra installed:
+
+```shell
+python benchmarks/run_benchmarks.py --data benchmarks/data/Transactional_T10I4D100K.csv && python benchmarks/plot_benchmarks.py
+```
+
+See [benchmarks/README.md](./benchmarks/README.md) for the pilot command, measurement
+boundaries, machine details, raw CSV results and real console output.
 
 ***
 

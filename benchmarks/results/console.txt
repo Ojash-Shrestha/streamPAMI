@@ -1,0 +1,156 @@
+Machine: Intel(R) Core(TM) i7-14650HX; Windows-10-10.0.26200-SP0; RAM=34.049 GB
+Versions: Python=3.11.9, pandas=3.0.6, PAMI=2026.10.13.1, matplotlib=3.11.2
+streamPAMI commit: cb5493c1f815250717d1810ff82e25905b933ca7
+Data: 99935 transactions; batch sizes=10000;10000;10000;10000;10000;10000;10000;10000;10000;9935; SHA256=3fdde151ee63fbf9d608619352a0e69690cc55bc2faa11dc724337fbf413a2b1
+START FPStream minSup=0.006 repetition=1 method=pami
+DONE FPStream minSup=0.006 repetition=1 method=pami patterns=772 runtime_s=18.725848 peak_memory_mb=478.257152
+START FPStream minSup=0.006 repetition=1 method=streamPAMI
+DONE FPStream minSup=0.006 repetition=1 method=streamPAMI patterns=935 runtime_s=20.105275 peak_memory_mb=214.978560
+CHECK FPStream minSup=0.006 repetition=1: precision=0.825668 recall=1.000000
+START FPStream minSup=0.006 repetition=2 method=pami
+DONE FPStream minSup=0.006 repetition=2 method=pami patterns=772 runtime_s=18.285717 peak_memory_mb=478.138368
+START FPStream minSup=0.006 repetition=2 method=streamPAMI
+DONE FPStream minSup=0.006 repetition=2 method=streamPAMI patterns=935 runtime_s=20.074034 peak_memory_mb=214.577152
+CHECK FPStream minSup=0.006 repetition=2: precision=0.825668 recall=1.000000
+START FPStream minSup=0.006 repetition=3 method=pami
+DONE FPStream minSup=0.006 repetition=3 method=pami patterns=772 runtime_s=18.413302 peak_memory_mb=477.741056
+START FPStream minSup=0.006 repetition=3 method=streamPAMI
+DONE FPStream minSup=0.006 repetition=3 method=streamPAMI patterns=935 runtime_s=20.026707 peak_memory_mb=214.478848
+CHECK FPStream minSup=0.006 repetition=3: precision=0.825668 recall=1.000000
+START FPStream minSup=0.007 repetition=1 method=pami
+DONE FPStream minSup=0.007 repetition=1 method=pami patterns=603 runtime_s=17.279757 peak_memory_mb=468.889600
+START FPStream minSup=0.007 repetition=1 method=streamPAMI
+DONE FPStream minSup=0.007 repetition=1 method=streamPAMI patterns=707 runtime_s=17.408532 peak_memory_mb=207.208448
+CHECK FPStream minSup=0.007 repetition=1: precision=0.852900 recall=1.000000
+START FPStream minSup=0.007 repetition=2 method=pami
+DONE FPStream minSup=0.007 repetition=2 method=pami patterns=603 runtime_s=17.294990 peak_memory_mb=469.385216
+START FPStream minSup=0.007 repetition=2 method=streamPAMI
+DONE FPStream minSup=0.007 repetition=2 method=streamPAMI patterns=707 runtime_s=17.541804 peak_memory_mb=207.572992
+CHECK FPStream minSup=0.007 repetition=2: precision=0.852900 recall=1.000000
+START FPStream minSup=0.007 repetition=3 method=pami
+DONE FPStream minSup=0.007 repetition=3 method=pami patterns=603 runtime_s=17.208013 peak_memory_mb=468.807680
+START FPStream minSup=0.007 repetition=3 method=streamPAMI
+DONE FPStream minSup=0.007 repetition=3 method=streamPAMI patterns=707 runtime_s=17.807091 peak_memory_mb=207.306752
+CHECK FPStream minSup=0.007 repetition=3: precision=0.852900 recall=1.000000
+START FPStream minSup=0.008 repetition=1 method=pami
+DONE FPStream minSup=0.008 repetition=1 method=pami patterns=493 runtime_s=16.403339 peak_memory_mb=493.629440
+START FPStream minSup=0.008 repetition=1 method=streamPAMI
+DONE FPStream minSup=0.008 repetition=1 method=streamPAMI patterns=583 runtime_s=15.583471 peak_memory_mb=202.539008
+CHECK FPStream minSup=0.008 repetition=1: precision=0.845626 recall=1.000000
+START FPStream minSup=0.008 repetition=2 method=pami
+DONE FPStream minSup=0.008 repetition=2 method=pami patterns=493 runtime_s=16.455338 peak_memory_mb=493.494272
+START FPStream minSup=0.008 repetition=2 method=streamPAMI
+DONE FPStream minSup=0.008 repetition=2 method=streamPAMI patterns=583 runtime_s=18.640421 peak_memory_mb=202.817536
+CHECK FPStream minSup=0.008 repetition=2: precision=0.845626 recall=1.000000
+START FPStream minSup=0.008 repetition=3 method=pami
+DONE FPStream minSup=0.008 repetition=3 method=pami patterns=493 runtime_s=17.534060 peak_memory_mb=493.838336
+START FPStream minSup=0.008 repetition=3 method=streamPAMI
+DONE FPStream minSup=0.008 repetition=3 method=streamPAMI patterns=583 runtime_s=16.834604 peak_memory_mb=202.424320
+CHECK FPStream minSup=0.008 repetition=3: precision=0.845626 recall=1.000000
+START FPStream minSup=0.009 repetition=1 method=pami
+DONE FPStream minSup=0.009 repetition=1 method=pami patterns=421 runtime_s=16.948509 peak_memory_mb=473.776128
+START FPStream minSup=0.009 repetition=1 method=streamPAMI
+DONE FPStream minSup=0.009 repetition=1 method=streamPAMI patterns=479 runtime_s=15.521078 peak_memory_mb=202.715136
+CHECK FPStream minSup=0.009 repetition=1: precision=0.878914 recall=1.000000
+START FPStream minSup=0.009 repetition=2 method=pami
+DONE FPStream minSup=0.009 repetition=2 method=pami patterns=421 runtime_s=16.826598 peak_memory_mb=473.886720
+START FPStream minSup=0.009 repetition=2 method=streamPAMI
+DONE FPStream minSup=0.009 repetition=2 method=streamPAMI patterns=479 runtime_s=15.494980 peak_memory_mb=202.407936
+CHECK FPStream minSup=0.009 repetition=2: precision=0.878914 recall=1.000000
+START FPStream minSup=0.009 repetition=3 method=pami
+DONE FPStream minSup=0.009 repetition=3 method=pami patterns=421 runtime_s=16.981102 peak_memory_mb=474.333184
+START FPStream minSup=0.009 repetition=3 method=streamPAMI
+DONE FPStream minSup=0.009 repetition=3 method=streamPAMI patterns=479 runtime_s=15.753490 peak_memory_mb=203.112448
+CHECK FPStream minSup=0.009 repetition=3: precision=0.878914 recall=1.000000
+START FPStream minSup=0.010 repetition=1 method=pami
+DONE FPStream minSup=0.010 repetition=1 method=pami patterns=385 runtime_s=16.186517 peak_memory_mb=439.984128
+START FPStream minSup=0.010 repetition=1 method=streamPAMI
+DONE FPStream minSup=0.010 repetition=1 method=streamPAMI patterns=421 runtime_s=14.032057 peak_memory_mb=197.341184
+CHECK FPStream minSup=0.010 repetition=1: precision=0.914489 recall=1.000000
+START FPStream minSup=0.010 repetition=2 method=pami
+DONE FPStream minSup=0.010 repetition=2 method=pami patterns=385 runtime_s=15.849630 peak_memory_mb=440.201216
+START FPStream minSup=0.010 repetition=2 method=streamPAMI
+DONE FPStream minSup=0.010 repetition=2 method=streamPAMI patterns=421 runtime_s=13.676715 peak_memory_mb=197.304320
+CHECK FPStream minSup=0.010 repetition=2: precision=0.914489 recall=1.000000
+START FPStream minSup=0.010 repetition=3 method=pami
+DONE FPStream minSup=0.010 repetition=3 method=pami patterns=385 runtime_s=15.826167 peak_memory_mb=439.955456
+START FPStream minSup=0.010 repetition=3 method=streamPAMI
+DONE FPStream minSup=0.010 repetition=3 method=streamPAMI patterns=421 runtime_s=13.770513 peak_memory_mb=197.046272
+CHECK FPStream minSup=0.010 repetition=3: precision=0.914489 recall=1.000000
+START DSTree minSup=0.006 repetition=1 method=pami
+DONE DSTree minSup=0.006 repetition=1 method=pami patterns=787 runtime_s=9.418454 peak_memory_mb=276.361216
+START DSTree minSup=0.006 repetition=1 method=streamPAMI
+DONE DSTree minSup=0.006 repetition=1 method=streamPAMI patterns=787 runtime_s=13.238380 peak_memory_mb=266.330112
+CHECK DSTree minSup=0.006 repetition=1: identical patterns and supports at all 10 batches
+START DSTree minSup=0.006 repetition=2 method=pami
+DONE DSTree minSup=0.006 repetition=2 method=pami patterns=787 runtime_s=9.282850 peak_memory_mb=276.561920
+START DSTree minSup=0.006 repetition=2 method=streamPAMI
+DONE DSTree minSup=0.006 repetition=2 method=streamPAMI patterns=787 runtime_s=13.213273 peak_memory_mb=266.305536
+CHECK DSTree minSup=0.006 repetition=2: identical patterns and supports at all 10 batches
+START DSTree minSup=0.006 repetition=3 method=pami
+DONE DSTree minSup=0.006 repetition=3 method=pami patterns=787 runtime_s=9.361687 peak_memory_mb=276.582400
+START DSTree minSup=0.006 repetition=3 method=streamPAMI
+DONE DSTree minSup=0.006 repetition=3 method=streamPAMI patterns=787 runtime_s=13.147782 peak_memory_mb=266.600448
+CHECK DSTree minSup=0.006 repetition=3: identical patterns and supports at all 10 batches
+START DSTree minSup=0.007 repetition=1 method=pami
+DONE DSTree minSup=0.007 repetition=1 method=pami patterns=610 runtime_s=8.974195 peak_memory_mb=272.818176
+START DSTree minSup=0.007 repetition=1 method=streamPAMI
+DONE DSTree minSup=0.007 repetition=1 method=streamPAMI patterns=610 runtime_s=13.153394 peak_memory_mb=264.970240
+CHECK DSTree minSup=0.007 repetition=1: identical patterns and supports at all 10 batches
+START DSTree minSup=0.007 repetition=2 method=pami
+DONE DSTree minSup=0.007 repetition=2 method=pami patterns=610 runtime_s=8.932128 peak_memory_mb=271.929344
+START DSTree minSup=0.007 repetition=2 method=streamPAMI
+DONE DSTree minSup=0.007 repetition=2 method=streamPAMI patterns=610 runtime_s=13.010631 peak_memory_mb=265.330688
+CHECK DSTree minSup=0.007 repetition=2: identical patterns and supports at all 10 batches
+START DSTree minSup=0.007 repetition=3 method=pami
+DONE DSTree minSup=0.007 repetition=3 method=pami patterns=610 runtime_s=8.876337 peak_memory_mb=273.457152
+START DSTree minSup=0.007 repetition=3 method=streamPAMI
+DONE DSTree minSup=0.007 repetition=3 method=streamPAMI patterns=610 runtime_s=13.279556 peak_memory_mb=264.949760
+CHECK DSTree minSup=0.007 repetition=3: identical patterns and supports at all 10 batches
+START DSTree minSup=0.008 repetition=1 method=pami
+DONE DSTree minSup=0.008 repetition=1 method=pami patterns=510 runtime_s=8.562815 peak_memory_mb=274.542592
+START DSTree minSup=0.008 repetition=1 method=streamPAMI
+DONE DSTree minSup=0.008 repetition=1 method=streamPAMI patterns=510 runtime_s=12.815905 peak_memory_mb=263.798784
+CHECK DSTree minSup=0.008 repetition=1: identical patterns and supports at all 10 batches
+START DSTree minSup=0.008 repetition=2 method=pami
+DONE DSTree minSup=0.008 repetition=2 method=pami patterns=510 runtime_s=8.576000 peak_memory_mb=273.461248
+START DSTree minSup=0.008 repetition=2 method=streamPAMI
+DONE DSTree minSup=0.008 repetition=2 method=streamPAMI patterns=510 runtime_s=19.595279 peak_memory_mb=263.901184
+CHECK DSTree minSup=0.008 repetition=2: identical patterns and supports at all 10 batches
+START DSTree minSup=0.008 repetition=3 method=pami
+DONE DSTree minSup=0.008 repetition=3 method=pami patterns=510 runtime_s=12.570031 peak_memory_mb=274.534400
+START DSTree minSup=0.008 repetition=3 method=streamPAMI
+DONE DSTree minSup=0.008 repetition=3 method=streamPAMI patterns=510 runtime_s=20.696836 peak_memory_mb=263.774208
+CHECK DSTree minSup=0.008 repetition=3: identical patterns and supports at all 10 batches
+START DSTree minSup=0.009 repetition=1 method=pami
+DONE DSTree minSup=0.009 repetition=1 method=pami patterns=423 runtime_s=11.634180 peak_memory_mb=265.662464
+START DSTree minSup=0.009 repetition=1 method=streamPAMI
+DONE DSTree minSup=0.009 repetition=1 method=streamPAMI patterns=423 runtime_s=20.312726 peak_memory_mb=264.839168
+CHECK DSTree minSup=0.009 repetition=1: identical patterns and supports at all 10 batches
+START DSTree minSup=0.009 repetition=2 method=pami
+DONE DSTree minSup=0.009 repetition=2 method=pami patterns=423 runtime_s=11.788055 peak_memory_mb=263.618560
+START DSTree minSup=0.009 repetition=2 method=streamPAMI
+DONE DSTree minSup=0.009 repetition=2 method=streamPAMI patterns=423 runtime_s=19.766199 peak_memory_mb=264.658944
+CHECK DSTree minSup=0.009 repetition=2: identical patterns and supports at all 10 batches
+START DSTree minSup=0.009 repetition=3 method=pami
+DONE DSTree minSup=0.009 repetition=3 method=pami patterns=423 runtime_s=12.070687 peak_memory_mb=265.494528
+START DSTree minSup=0.009 repetition=3 method=streamPAMI
+DONE DSTree minSup=0.009 repetition=3 method=streamPAMI patterns=423 runtime_s=20.871957 peak_memory_mb=264.843264
+CHECK DSTree minSup=0.009 repetition=3: identical patterns and supports at all 10 batches
+START DSTree minSup=0.010 repetition=1 method=pami
+DONE DSTree minSup=0.010 repetition=1 method=pami patterns=385 runtime_s=10.875730 peak_memory_mb=262.623232
+START DSTree minSup=0.010 repetition=1 method=streamPAMI
+DONE DSTree minSup=0.010 repetition=1 method=streamPAMI patterns=385 runtime_s=19.195205 peak_memory_mb=264.630272
+CHECK DSTree minSup=0.010 repetition=1: identical patterns and supports at all 10 batches
+START DSTree minSup=0.010 repetition=2 method=pami
+DONE DSTree minSup=0.010 repetition=2 method=pami patterns=385 runtime_s=10.960242 peak_memory_mb=262.455296
+START DSTree minSup=0.010 repetition=2 method=streamPAMI
+DONE DSTree minSup=0.010 repetition=2 method=streamPAMI patterns=385 runtime_s=19.283393 peak_memory_mb=264.335360
+CHECK DSTree minSup=0.010 repetition=2: identical patterns and supports at all 10 batches
+START DSTree minSup=0.010 repetition=3 method=pami
+DONE DSTree minSup=0.010 repetition=3 method=pami patterns=385 runtime_s=10.628684 peak_memory_mb=262.086656
+START DSTree minSup=0.010 repetition=3 method=streamPAMI
+DONE DSTree minSup=0.010 repetition=3 method=streamPAMI patterns=385 runtime_s=15.455016 peak_memory_mb=264.552448
+CHECK DSTree minSup=0.010 repetition=3: identical patterns and supports at all 10 batches
+Completed 60 fresh subprocesses in 973.680 s.
+Summary: median runtime; maximum peak memory across repetitions; no averaging of pattern counts.

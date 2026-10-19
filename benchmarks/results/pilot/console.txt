@@ -1,0 +1,17 @@
+Machine: Intel(R) Core(TM) i7-14650HX; Windows-10-10.0.26200-SP0; RAM=34.049 GB
+Versions: Python=3.11.9, pandas=3.0.6, PAMI=2026.10.13.1, matplotlib=3.11.2
+streamPAMI commit: cb5493c1f815250717d1810ff82e25905b933ca7
+Data: 99935 transactions; batch sizes=10000;10000;10000;10000;10000;10000;10000;10000;10000;9935; SHA256=3fdde151ee63fbf9d608619352a0e69690cc55bc2faa11dc724337fbf413a2b1
+START FPStream minSup=0.006 repetition=1 method=pami
+DONE FPStream minSup=0.006 repetition=1 method=pami patterns=772 runtime_s=31.556631 peak_memory_mb=479.145984
+START FPStream minSup=0.006 repetition=1 method=streamPAMI
+DONE FPStream minSup=0.006 repetition=1 method=streamPAMI patterns=935 runtime_s=30.708952 peak_memory_mb=214.454272
+CHECK FPStream minSup=0.006 repetition=1: precision=0.825668 recall=1.000000
+START DSTree minSup=0.006 repetition=1 method=pami
+DONE DSTree minSup=0.006 repetition=1 method=pami patterns=787 runtime_s=12.057427 peak_memory_mb=276.668416
+START DSTree minSup=0.006 repetition=1 method=streamPAMI
+DONE DSTree minSup=0.006 repetition=1 method=streamPAMI patterns=787 runtime_s=21.474694 peak_memory_mb=266.506240
+CHECK DSTree minSup=0.006 repetition=1: identical patterns and supports at all 10 batches
+Completed 4 fresh subprocesses in 101.774 s.
+Summary: median runtime; maximum peak memory across repetitions; no averaging of pattern counts.
+Pilot projection for 5 minSup values x 3 repetitions: 1526.605 s (0.424 hours).

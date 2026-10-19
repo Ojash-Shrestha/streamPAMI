@@ -1,0 +1,5 @@
+algorithm,min_sup,method,repetitions,patterns,runtime_s,peak_memory_mb,precision,recall
+FPStream,0.006,pami,1,772,31.556631200015545,479.145984,,
+FPStream,0.006,streamPAMI,1,935,30.708951899956446,214.454272,0.825668449197861,1.0
+DSTree,0.006,pami,1,787,12.057426899962593,276.668416,,
+DSTree,0.006,streamPAMI,1,787,21.47469399997499,266.50624,,

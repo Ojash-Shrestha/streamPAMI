@@ -5,3 +5,4 @@ __pycache__/
 *.egg-info/
 review_*.txt
 *.patch
+benchmarks/data/
