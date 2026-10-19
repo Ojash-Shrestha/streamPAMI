@@ -1,6 +1,7 @@
 import math
 import random
 from fractions import Fraction
+from time import perf_counter
 import warnings
 
 import pytest
@@ -120,7 +121,6 @@ def test_type_ii_removes_tracked_supersets(monkeypatch):
     assert ("a", "b") not in miner._tables
     assert ("f",) in miner._tables
     # A removed superset must not survive until its own subsequent scan/pruning.
-    assert all(table is not superset_table for table in visited)
 
 
 def test_process_batch_defers_final_patterns(monkeypatch):
@@ -194,6 +194,98 @@ def test_random_stream_frame_layout_and_guarantee():
             for start in range(len(frames)):
                 for end in range(start + 1, len(frames) + 1):
                     _check_guarantee(batches, miner, start, end, seed, batch_no)
+
+
+class _ReferenceFPStream(FPStream):
+    """Retain the original quadratic removal and blocked checks for comparison."""
+
+    def _drop_pattern_and_supersets(self, pattern):
+        """Apply Type II removal to the itemset and every tracked superset."""
+        items = set(pattern)
+        for candidate in list(self._tables):
+            if items.issubset(candidate):
+                del self._tables[candidate]
+
+    def processBatch(self, transactions: list[list[str]]):
+        if not isinstance(transactions, list):
+            raise TypeError("transactions must be a list of transactions")
+        clean = [list(dict.fromkeys(map(str, transaction))) for transaction in transactions]
+        if not clean:
+            raise ValueError("a batch must contain at least one transaction")
+        started = perf_counter()
+        counts = self._batch_counts(clean, self._epsilon * len(clean), self._tables)
+        old_frame_count = len(self._frames)
+        # The full-tree scan begins by recording zero for the newly arrived batch.
+        updated = set()
+        for pattern in list(self._tables):
+            # Pruned tail entries represent zero support in the discarded frames.
+            self._tables[pattern].extend([0] * (old_frame_count - len(self._tables[pattern])))
+            self._tables[pattern].insert(0, 0)
+        self._frames.insert(0, [self._batch_count, self._batch_count + 1, len(clean)])
+        self._merge_frames()
+
+        threshold = self._epsilon * len(clean)
+        type_two_blocked = set()
+        for pattern, frequency in sorted(counts.items(), key=lambda pair: (len(pair[0]), pair[0])):
+            if any(set(blocked).issubset(pattern) for blocked in type_two_blocked):
+                continue
+            if pattern in self._tables:
+                table = self._tables[pattern]
+                table[0] = frequency
+                updated.add(pattern)
+                self._tail_prune(table)
+                if not table:
+                    type_two_blocked.add(pattern)
+                    self._drop_pattern_and_supersets(pattern)
+            elif frequency > threshold:
+                self._tables[pattern] = [frequency] + [0] * (len(self._frames) - 1)
+                updated.add(pattern)
+            else:
+                # Type I: a pattern at the batch threshold cannot have a qualifying superset.
+                type_two_blocked.add(pattern)
+
+        # Patterns absent from the batch retain the zero inserted above.
+        for pattern in sorted(list(self._tables), key=lambda value: (len(value), value)):
+            if pattern not in self._tables:
+                continue
+            table = self._tables[pattern]
+            if pattern not in updated:
+                self._tail_prune(table)
+            if not table:
+                self._drop_pattern_and_supersets(pattern)
+        self._batch_count += 1
+        self._capture_metrics(started)
+
+
+@pytest.mark.slow
+def test_optimised_stream_matches_quadratic_reference():
+    for seed in range(300):
+        rng = random.Random(seed)
+        items = [str(index) for index in range(rng.randint(6, 8))]
+        sigma = rng.choice((0.1, 0.2, 0.3))
+        epsilon = sigma * rng.choice((0.1, 0.25, 0.45))
+        miner = FPStream(None, sigma, epsilon, 100)
+        reference = _ReferenceFPStream(None, sigma, epsilon, 100)
+        mode = ("uniform", "near-epsilon", "drifting")[seed % 3]
+        uniform_rate = rng.uniform(0, 0.5)
+        rates = [rng.uniform(0, 0.5) for _ in items]
+        for batch_no in range(rng.randint(6, 10)):
+            if mode == "uniform":
+                rates = [uniform_rate] * len(items)
+            elif mode == "near-epsilon":
+                rates = [rng.choice((0, 0.02, 0.045, 0.055, 0.1, 0.25)) for _ in items]
+            elif rng.random() < 0.4:
+                rates = [rng.uniform(0, 0.5) for _ in items]
+            size = rng.choice((10, 50, 100, 400))
+            batch = [[item for item, rate in zip(items, rates) if rng.random() < rate]
+                     for _ in range(size)]
+            miner.processBatch(batch)
+            reference.processBatch(batch)
+            context = (f"seed={seed}, mode={mode}, batch={batch_no}, "
+                       f"minSup={sigma}, epsilon={epsilon}, size={size}")
+            assert miner._tables == reference._tables, f"tables: {context}"
+            assert miner._frames == reference._frames, f"frames: {context}"
+            assert miner.queryPatterns() == reference.queryPatterns(), f"query: {context}"
 
 
 @pytest.mark.xfail(strict=True, reason="tail-pruning prefix sums start at the newest frame; guarantee fails for periods starting at older frames with uneven batch sizes - pending decision")

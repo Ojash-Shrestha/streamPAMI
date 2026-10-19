@@ -27,6 +27,7 @@ from __future__ import annotations
 
 from collections import Counter
 from fractions import Fraction
+from itertools import combinations
 from time import perf_counter
 import warnings
 
@@ -171,12 +172,14 @@ class FPStream(_streamFrequentPatterns):
         grow(root, headers, tuple(), threshold)
         return mined
 
+    @staticmethod
+    def _has_subset_in(pattern, patterns):
+        return any(sub in patterns for r in range(1, len(pattern) + 1)
+                   for sub in combinations(pattern, r))
+
     def _drop_pattern_and_supersets(self, pattern):
-        """Apply Type II removal to the itemset and every tracked superset."""
-        items = set(pattern)
-        for candidate in list(self._tables):
-            if items.issubset(candidate):
-                del self._tables[candidate]
+        """Defer Type II removal until the single purge at the end of the batch."""
+        self._pending_drops.add(pattern)
 
     def processBatch(self, transactions: list[list[str]]):
         if not isinstance(transactions, list):
@@ -185,6 +188,7 @@ class FPStream(_streamFrequentPatterns):
         if not clean:
             raise ValueError("a batch must contain at least one transaction")
         started = perf_counter()
+        self._pending_drops = set()
         counts = self._batch_counts(clean, self._epsilon * len(clean), self._tables)
         old_frame_count = len(self._frames)
         # The full-tree scan begins by recording zero for the newly arrived batch.
@@ -199,7 +203,7 @@ class FPStream(_streamFrequentPatterns):
         threshold = self._epsilon * len(clean)
         type_two_blocked = set()
         for pattern, frequency in sorted(counts.items(), key=lambda pair: (len(pair[0]), pair[0])):
-            if any(set(blocked).issubset(pattern) for blocked in type_two_blocked):
+            if self._has_subset_in(pattern, type_two_blocked):
                 continue
             if pattern in self._tables:
                 table = self._tables[pattern]
@@ -225,6 +229,11 @@ class FPStream(_streamFrequentPatterns):
                 self._tail_prune(table)
             if not table:
                 self._drop_pattern_and_supersets(pattern)
+        if self._pending_drops:
+            for pattern in list(self._tables):
+                if self._has_subset_in(pattern, self._pending_drops):
+                    del self._tables[pattern]
+        self._pending_drops = set()
         self._batch_count += 1
         self._capture_metrics(started)
 
