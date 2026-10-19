@@ -1,0 +1,5 @@
+run_index,algorithm,min_sup,method,repetition
+1,FPStream,0.006,pami,1
+2,FPStream,0.006,streamPAMI,1
+3,DSTree,0.006,pami,1
+4,DSTree,0.006,streamPAMI,1

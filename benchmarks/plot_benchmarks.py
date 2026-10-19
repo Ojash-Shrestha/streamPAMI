@@ -32,8 +32,8 @@ def main():
     args = parser.parse_args()
     with (args.results / "summary.csv").open(newline="", encoding="utf-8") as source:
         rows = list(csv.DictReader(source))
-    if len(rows) != 20 or any(int(row["repetitions"]) != 3 for row in rows):
-        raise ValueError("Plots require the complete five-minSup, three-repetition results")
+    if len(rows) != 20 or any(int(row["repetitions"]) != 5 for row in rows):
+        raise ValueError("Plots require the complete five-minSup, five-repetition results")
     args.images.mkdir(parents=True, exist_ok=True)
     metrics = (("patterns", "Number of patterns"), ("runtime_s", "Runtime (s)"),
                ("peak_memory_mb", "Peak memory (MB)"))
@@ -45,9 +45,19 @@ def main():
             for method, colour, marker in zip(("streamPAMI", "pami"), COLOURS, ("o", "s")):
                 group = sorted((row for row in rows if row["algorithm"] == algorithm
                                 and row["method"] == method), key=lambda row: float(row["min_sup"]))
-                measured.extend(float(row[metric]) for row in group)
-                axis.plot([float(row["min_sup"]) for row in group],
-                          [float(row[metric]) for row in group], color=colour, marker=marker,
+                centres = [float(row[metric]) for row in group]
+                error_bars = None
+                if metric != "patterns":
+                    lows = [float(row[metric + "_min"]) for row in group]
+                    highs = [float(row[metric + "_max"]) for row in group]
+                    error_bars = [[centre - low for centre, low in zip(centres, lows)],
+                                  [high - centre for centre, high in zip(centres, highs)]]
+                    measured.extend(highs)
+                else:
+                    measured.extend(centres)
+                axis.errorbar([float(row["min_sup"]) for row in group],
+                          centres, yerr=error_bars, capsize=4, elinewidth=1,
+                          color=colour, marker=marker,
                           markersize=6 if method == "streamPAMI" else 8,
                           markerfacecolor=colour if method == "streamPAMI" else "none",
                           label=("FP-Stream" if algorithm == "FPStream" else "DSTree")

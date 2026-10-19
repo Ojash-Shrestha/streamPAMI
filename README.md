@@ -118,9 +118,13 @@ the whole stream so far, with epsilon = 0.1 * minSup; DSTree queries its sliding
 window of three batches. Each is compared with exact FP-growth from PAMI,
 re-mined after every batch over the same horizon with integer support threshold
 ceil(minSup * W). We use minSup values 0.006, 0.007, 0.008, 0.009 and 0.010, with
-three repetitions in fresh subprocesses per method and configuration. The plots
-show final pattern counts, median total runtime across all ten batches, and the
-maximum process peak memory across the three repetitions.
+five repetitions in fresh subprocesses per method and configuration. All 100 runs
+are randomised together with fixed seed 20261020. The plots show final pattern
+counts, median total runtime across all ten batches, and median process peak
+memory. Runtime and memory error bars span the minimum to maximum of the five
+repetitions. These measurements describe one laptop. We call a method faster or
+slower only when its min–max runtime range does not overlap the other method's;
+overlapping or touching ranges are described as similar.
 
 Dataset: [T10I4D100K](https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv).
 The supplied file contains 99,935 transactions, so the final batch contains 9,935;
@@ -137,14 +141,15 @@ answers for validation, in decimal MB.
 | Python | 3.11.9 |
 | pandas | 3.0.6 |
 | PAMI | 2026.10.13.1 |
-| streamPAMI commit measured | `cb5493c1f815250717d1810ff82e25905b933ca7` |
+| streamPAMI commit measured | `ea79897f34a2829051bcaf62faca44184a9dd91b` |
+| Run-order seed | `20261020` |
 
 ### FP-Stream: whole stream
 
 FP-Stream returned more patterns than the exact baseline at every setting, as
-its query threshold also admits candidates below minSup. Its median runtime
-was higher than PAMI's at minSup 0.006, 0.007 and 0.008, and lower at 0.009 and
-0.010. Its peak process memory was lower at all five settings on this machine.
+its query threshold also admits candidates below minSup. Runtimes were similar
+to PAMI's at all five settings because the observed ranges overlapped. Its
+peak-memory ranges were below PAMI's at every setting on this laptop.
 
 ![FP-Stream and exact FP-growth: final pattern counts](./images/fpstream_patterns.png)
 
@@ -155,9 +160,10 @@ was higher than PAMI's at minSup 0.006, 0.007 and 0.008, and lower at 0.009 and
 ### DSTree: last three batches
 
 DSTree's pattern sets and supports matched PAMI after every batch in all
-repetitions. Its median runtime was higher at every minSup. Peak process memory
-was slightly lower than PAMI's at 0.006–0.009 and slightly higher at 0.010.
-Timings varied between repetitions; the CSVs retain that variation.
+repetitions. Runtimes were similar at minSup 0.006. DSTree was slower at 0.007,
+0.008, 0.009 and 0.010, where the runtime ranges did not overlap PAMI's. Its
+peak-memory ranges were lower at 0.006–0.008, overlapped PAMI's at 0.009, and
+were higher at 0.010. The CSVs retain every repetition.
 
 ![DSTree and exact FP-growth: final pattern counts](./images/dstree_patterns.png)
 
