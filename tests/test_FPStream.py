@@ -165,6 +165,7 @@ def test_false_negative_older_period_uneven_batches():
     assert ("x",) in miner.queryPatterns(1, 3)
 
 
+@pytest.mark.slow
 def test_drifting_random_stream_variable_batch_sizes_guarantee():
     for seed in range(200):
         rng = random.Random(seed)

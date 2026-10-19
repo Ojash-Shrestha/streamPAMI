@@ -13,7 +13,7 @@ import validators
 
 
 class _streamFrequentPatterns(ABC):
-    def __init__(self, iFile, minSup, epsilon, batchSize, sep="\t"):
+    def __init__(self, iFile, minSup, epsilon=None, batchSize=None, sep="\t"):
         self.iFile, self.minSup, self.epsilon = iFile, minSup, epsilon
         self.batchSize, self.sep = batchSize, sep
         self._patterns = {}

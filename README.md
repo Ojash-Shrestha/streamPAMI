@@ -87,6 +87,11 @@ much larger than older ones. A reproducible case is recorded in
 `tests/test_FPStream.py::test_false_negative_older_period_uneven_batches`.
 <!-- TODO(Ojash): update after the Section 3.5 decision (document as a limitation of the paper, or fix the pruning rule). -->
 
+**DSTree** is exact over any contiguous range of batches in its sliding window of
+`windowSize` batches. Empty transactions count towards the support denominator. Its tree
+retains the window's transactions, compressed by shared prefixes, so memory grows with the
+window and its per-node batch counts; it has no epsilon-bounded summary.
+
 ***
 
 # Features
@@ -94,7 +99,7 @@ much larger than older ones. A reproducible case is recorded in
 - ✅ Every algorithm is checked against a brute-force oracle after every batch, on random and drifting streams
 - 📏 Stated accuracy guarantees, with exact (fractional) threshold arithmetic
 - 🌊 Works on live streams, not only on files replayed from disk
-- 🧠 Bounded memory: the stream is summarised, never stored
+- 🧠 Memory follows the algorithm: a compact summary or a compressed sliding window
 - 🔁 Same interface as PAMI
 - 🖥️ Operating system independent
 
@@ -244,7 +249,7 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
 
 | Basic | Closed | Maximal | Top-k |
 |---|---|---|---|
-| FP-Stream | | | |
+| FP-Stream, DSTree | | | |
 
 ***
 
