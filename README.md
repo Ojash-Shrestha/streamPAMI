@@ -75,15 +75,17 @@ package layout and the same method names, so PAMI users can start without learni
 Approximate stream algorithms trade accuracy for memory. Every algorithm in streamPAMI states its
 guarantee, and the test suite checks that guarantee against a brute-force miner.
 
-**FP-Stream** (Giannella et al., 2003). For a queried period with W transactions and true support f:
+**FP-Stream** (Giannella et al., 2003). The guarantee holds only when σ > 2·ε and
+the queried period **starts at the newest time frame**. For such a period with W
+transactions and true support f:
 
 1. Every pattern with f ≥ σ·W is returned (no false negatives).
 2. Each returned support lies in [f − ε·W, f].
 3. Patterns with f between (σ − ε)·W and σ·W may also be returned.
 
-**Known limitation.** The guarantee holds for periods that **start at the most recent time frame**.
-For periods that start at an older frame, a frequent pattern can be missed when recent batches are
-much larger than older ones. A reproducible case is recorded in
+**Known limitations.** With ε ≥ σ/2, false negatives are possible, and the constructor emits a
+`UserWarning`. For periods that start at an older frame, a frequent pattern can be missed when
+recent batches are much larger than older ones. A reproducible case is recorded in
 `tests/test_FPStream.py::test_false_negative_older_period_uneven_batches`.
 <!-- TODO(Ojash): update after the Section 3.5 decision (document as a limitation of the paper, or fix the pruning rule). -->
 

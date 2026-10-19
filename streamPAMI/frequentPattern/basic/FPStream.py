@@ -5,6 +5,12 @@ Tail pruning uses the two strict inequalities in Section 3.5; strictness is requ
 Threshold comparisons use exact decimal fractions internally. The public
 minSup and epsilon attributes retain their floating-point values.
 
+Accuracy guarantees hold only when sigma > 2 * epsilon and the queried period
+starts at the newest frame. For such a period with W transactions and true
+support f, every itemset with f >= sigma * W is returned, and each returned
+estimate lies in [f - epsilon * W, f]. The constructor emits a UserWarning when
+epsilon >= minSup / 2 because false negatives are possible.
+
 Known failure pending a pruning decision: with uneven batch sizes, prefix sums
 starting at the newest frame can cause false negatives for periods starting
 at older frames. The strict expected-failure test records this limitation;
@@ -22,6 +28,7 @@ from __future__ import annotations
 from collections import Counter
 from fractions import Fraction
 from time import perf_counter
+import warnings
 
 from .abstract import _streamFrequentPatterns
 
@@ -38,6 +45,13 @@ class FPStream(_streamFrequentPatterns):
             raise ValueError("batchSize must be a positive integer")
         self._min_sup = Fraction(str(minSup))
         self._epsilon = Fraction(str(epsilon))
+        if 2 * self._epsilon >= self._min_sup:
+            warnings.warn(
+                "Accuracy guarantees require minSup > 2 * epsilon; "
+                "epsilon >= minSup / 2 can cause false negatives.",
+                UserWarning,
+                stacklevel=2,
+            )
         super().__init__(iFile, float(minSup), float(epsilon), batchSize, sep)
         self._frames = []  # newest first: [start, end, transaction weight]
         self._tables = {}  # itemset -> support per visible frame, newest first

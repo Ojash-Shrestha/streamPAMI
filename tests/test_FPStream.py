@@ -1,6 +1,7 @@
 import math
 import random
 from fractions import Fraction
+import warnings
 
 import pytest
 
@@ -42,6 +43,49 @@ def test_validation():
     for sigma, epsilon in [(0, .1), (1, .1), (.2, 0), (.2, .2), (.2, .3)]:
         with pytest.raises(ValueError):
             FPStream(None, sigma, epsilon, 10)
+
+
+@pytest.mark.parametrize("sigma,epsilon", [(0.2, 0.1), (0.2, 0.15), (0.3, 0.15)])
+def test_warns_when_accuracy_precondition_is_not_met(sigma, epsilon):
+    with pytest.warns(UserWarning) as caught:
+        FPStream(None, sigma, epsilon, 100)
+    assert len(caught) == 1
+    assert str(caught[0].message) == (
+        "Accuracy guarantees require minSup > 2 * epsilon; "
+        "epsilon >= minSup / 2 can cause false negatives."
+    )
+
+
+@pytest.mark.parametrize("epsilon", [0.05, 0.09, 0.09999999999999999])
+def test_no_warning_when_accuracy_precondition_is_met(epsilon):
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        FPStream(None, 0.2, epsilon, 100)
+    assert not caught
+
+
+@pytest.mark.parametrize("last_count,true_support", [(400, 548), (350, 498)], ids=["R1", "R2"])
+def test_whole_stream_support_after_insertion_and_frame_merge(last_count, true_support):
+    miner = FPStream(None, 0.2, 0.05, 100)
+    for size, count in [(1000, 49), (1000, 99), (400, last_count)]:
+        miner.processBatch([["x"] if t < count else ["f"] for t in range(size)])
+    weight = sum(miner.getFrameWeights())
+    assert weight == 2400
+    assert true_support >= Fraction("0.2") * weight
+    patterns = miner.queryPatterns()
+    assert ("x",) in patterns
+    assert true_support - Fraction("0.05") * weight <= patterns[("x",)] <= true_support
+
+
+@pytest.mark.xfail(strict=True, reason="minSup <= 2 * epsilon can cause false negatives")
+def test_false_negative_when_accuracy_precondition_is_not_met():
+    with pytest.warns(UserWarning):
+        miner = FPStream(None, 0.2, 0.15, 100)
+    for size, count in zip([400, 100, 50], [54, 50, 12]):
+        miner.processBatch([["x"] if t < count else ["f"] for t in range(size)])
+    assert miner.getTimeFrames() == [(2, 3), (0, 2)]
+    # True support is 116 >= 0.2 * 550 = 110, so x should be returned.
+    assert ("x",) in miner.queryPatterns(0, 2)
 
 
 def test_inclusive_query_boundary():
