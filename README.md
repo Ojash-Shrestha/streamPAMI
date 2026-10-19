@@ -7,6 +7,7 @@
 # Table of Contents
 
 - [Introduction](#introduction)
+- [Development Workflow of an Algorithm in streamPAMI](#development-workflow-of-an-algorithm-in-streampami)
 - [Inputs and Outputs of an Algorithm in streamPAMI](#inputs-and-outputs-of-an-algorithm-in-streampami)
 - [Accuracy Guarantees](#accuracy-guarantees)
 - [Features](#features)
@@ -43,7 +44,19 @@ package layout and the same method names, so PAMI users can start without learni
 
 ***
 
+# Development Workflow of an Algorithm in streamPAMI
+
+![streamPAMI development, review and release workflow](./images/developmentWorkflowStreamPAMI.png)
+
+Every algorithm passes a literature check, brute-force oracle tests after every batch, and
+mutation checks before it is documented. Every change is then independently reviewed in a
+clean environment before it is merged.
+
+***
+
 # Inputs and Outputs of an Algorithm in streamPAMI
+
+![Inputs and outputs of a streamPAMI algorithm](./images/inputOutputStreamPAMI.png)
 
 **Inputs** (example: FP-Stream)
 
