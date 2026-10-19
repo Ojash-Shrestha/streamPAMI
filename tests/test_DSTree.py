@@ -8,6 +8,7 @@ import pandas as pd
 import pytest
 
 from streamPAMI.frequentPattern.basic.DSTree import DSTree
+from streamPAMI.frequentPattern.basic.FPStream import FPStream
 from tests.bruteForce import supports
 
 
@@ -113,25 +114,36 @@ def test_file_mining_and_pami_output_format(tmp_path, capsys):
     miner = DSTree(source, 0.25, 2, 2, sep=";")
     assert miner.epsilon is None
     miner.mine()
-    expected = {("a",): 1, ("b",): 2, ("a", "b"): 1}
+    expected = {("old",): 2, ("a",): 1, ("b",): 2, ("a", "b"): 1}
     assert miner.getPatterns() == expected
-    assert miner.getTimeFrames() == [(2, 3), (1, 2)]
+    assert miner.getTimeFrames() == [(1, 2), (0, 1)]
     assert miner.getFrameWeights() == [2, 2]
     frame = miner.getPatternsAsDataFrame()
     assert list(frame.columns) == ["Patterns", "Support"]
-    assert dict(zip(frame["Patterns"], frame["Support"])) == {"a": 1, "b": 2, "a;b": 1}
+    assert dict(zip(frame["Patterns"], frame["Support"])) == {"old": 2, "a": 1, "b": 2, "a;b": 1}
     output = tmp_path / "patterns.txt"
     miner.save(output)
-    assert set(output.read_text(encoding="utf-8").splitlines()) == {"a:1", "b:2", "a;b:1"}
+    assert set(output.read_text(encoding="utf-8").splitlines()) == {"old:2", "a:1", "b:2", "a;b:1"}
     assert miner.getRuntime() >= 0
     assert miner.getMemoryRSS() > 0
     assert miner.getMemoryUSS() >= 0
     miner.printResults()
-    assert "Total number of patterns: 3" in capsys.readouterr().out
+    assert "Total number of patterns: 4" in capsys.readouterr().out
     with pytest.deprecated_call():
         miner.startMine()
     assert miner.getPatterns() == expected
-    assert miner.getTimeFrames() == [(2, 3), (1, 2)]
+    assert miner.getTimeFrames() == [(1, 2), (0, 1)]
+
+
+def test_file_blank_lines_give_same_denominator_as_fpstream(tmp_path):
+    source = tmp_path / "blank_lines.txt"
+    source.write_text("\na;b\n\nb\n \t \na\n\nc\n\na;c\n\n", encoding="utf-8")
+    fpstream = FPStream(source, 0.2, 0.05, 2, sep=";")
+    dstree = DSTree(source, 0.2, 3, 2, sep=";")
+    fpstream.mine()
+    dstree.mine()
+    # Both miners see five transactions, including the final partial batch.
+    assert sum(fpstream.getFrameWeights()) == sum(dstree.getFrameWeights()) == 5
 
 
 def test_empty_transactions_count_towards_denominator():
@@ -156,18 +168,19 @@ def test_mine_keeps_final_partial_batch():
     assert miner.getPatterns() == {("a",): 1}
 
 
-def test_url_input_preserves_blank_transactions(monkeypatch):
+def test_url_input_skips_blank_lines(monkeypatch):
     urls = []
 
     def open_stream(url):
         urls.append(url)
-        return BytesIO(b"x\n\nx\n\n")
+        return BytesIO(b"x\n\n \t \nx\n\n")
 
     monkeypatch.setattr("streamPAMI.frequentPattern.basic.abstract.urlopen", open_stream)
     miner = DSTree("https://example.com/stream.txt", 0.5, 2, 2)
     miner.mine()
     assert urls == ["https://example.com/stream.txt"]
-    assert miner.getFrameWeights() == [2, 2]
+    assert miner.getTimeFrames() == [(0, 1)]
+    assert miner.getFrameWeights() == [2]
     assert miner.getPatterns() == {("x",): 2}
 
 

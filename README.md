@@ -88,9 +88,10 @@ much larger than older ones. A reproducible case is recorded in
 <!-- TODO(Ojash): update after the Section 3.5 decision (document as a limitation of the paper, or fix the pruning rule). -->
 
 **DSTree** is exact over any contiguous range of batches in its sliding window of
-`windowSize` batches. Empty transactions count towards the support denominator. Its tree
-retains the window's transactions, compressed by shared prefixes, so memory grows with the
-window and its per-node batch counts; it has no epsilon-bounded summary.
+`windowSize` batches. Empty transactions supplied to `processBatch` count towards the support
+denominator; blank lines in files and URLs are skipped. Its tree retains the window's
+transactions, compressed by shared prefixes, so memory grows with the window and its per-node
+batch counts; it has no epsilon-bounded summary.
 
 ***
 

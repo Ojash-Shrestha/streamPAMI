@@ -23,8 +23,9 @@ Design choices to confirm against the paper
 The tree holds every transaction of the window, compressed by shared prefixes.
 Memory grows with the window's transactions (windowSize * batchSize for fixed
 batches), transaction lengths and per-node count vectors. Unlike FP-Stream,
-there is no epsilon-bounded summary. Empty transactions contribute to W without
-creating item nodes; blank input lines also represent empty transactions.
+there is no epsilon-bounded summary. Empty transactions supplied directly or in
+a DataFrame contribute to W without creating item nodes. Blank lines in files
+and URLs are skipped.
 
 Importing this algorithm into a python program::
 
@@ -188,12 +189,6 @@ class DSTree(_streamFrequentPatterns):
 
         grow(headers, ())
         return patterns
-
-    def _parse_lines(self, lines):
-        # Preserve each blank line as a transaction, unlike approximate FPStream input.
-        for line in lines:
-            line = line.strip()
-            yield (line.split(self.sep) if self.sep else line.split()) if line else []
 
     def mine(self):
         started = perf_counter()
