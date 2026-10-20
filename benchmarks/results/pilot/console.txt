@@ -1,0 +1,23 @@
+Machine: Intel(R) Core(TM) i7-14650HX; Windows-10-10.0.26200-SP0; RAM=34.049 GB
+Versions: Python=3.11.9, pandas=3.0.6, PAMI=2026.10.13.1, matplotlib=3.11.2
+streamPAMI commit: ea79897f34a2829051bcaf62faca44184a9dd91b
+Data: 99935 transactions; batch sizes=10000;10000;10000;10000;10000;10000;10000;10000;10000;9935; SHA256=3fdde151ee63fbf9d608619352a0e69690cc55bc2faa11dc724337fbf413a2b1
+Randomised run order: seed=20261020; repetitions=1; scheduled_runs=4
+START run_index=1 start_utc=2026-10-19T15:41:24.486142+00:00 FPStream minSup=0.006 repetition=1 method=pami
+DONE run_index=1 FPStream minSup=0.006 repetition=1 method=pami patterns=772 runtime_s=23.378584 peak_memory_mb=478.523392
+START run_index=2 start_utc=2026-10-19T15:41:49.385046+00:00 FPStream minSup=0.006 repetition=1 method=streamPAMI
+DONE run_index=2 FPStream minSup=0.006 repetition=1 method=streamPAMI patterns=935 runtime_s=23.713839 peak_memory_mb=214.417408
+CHECK FPStream minSup=0.006 repetition=1: precision=0.825668 recall=1.000000
+START run_index=3 start_utc=2026-10-19T15:42:14.221927+00:00 DSTree minSup=0.006 repetition=1 method=pami
+DONE run_index=3 DSTree minSup=0.006 repetition=1 method=pami patterns=787 runtime_s=9.314699 peak_memory_mb=277.078016
+START run_index=4 start_utc=2026-10-19T15:42:24.492827+00:00 DSTree minSup=0.006 repetition=1 method=streamPAMI
+DONE run_index=4 DSTree minSup=0.006 repetition=1 method=streamPAMI patterns=787 runtime_s=13.272533 peak_memory_mb=266.956800
+CHECK DSTree minSup=0.006 repetition=1: identical patterns and supports at all 10 batches
+Completed 4 fresh subprocesses in 74.355 s.
+Run order: seed=20261020; 1 repetitions; run_index=1..4; start_utc recorded for every run.
+Correctness: FP-Stream recall=1.0 in 1 checks; DSTree identical in 10 batch comparisons.
+Summary: median runtime and median peak memory, with min-max ranges; no averaging of pattern counts.
+Runtime labels use disjoint min-max ranges; overlapping or touching ranges are similar.
+FPStream runtime vs PAMI: 0.006=slower
+DSTree runtime vs PAMI: 0.006=slower
+Pilot projection for 5 minSup values x 5 repetitions: 1858.866 s (0.516 hours).

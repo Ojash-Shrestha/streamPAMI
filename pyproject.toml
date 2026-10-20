@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "streamPAMI"
+version = "0.1.0"
+description = "Streaming frequent pattern mining"
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.9"
+dependencies = ["pandas", "psutil", "validators"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+bench = ["pami", "matplotlib"]
+
+[tool.setuptools.packages.find]
+include = ["streamPAMI*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["slow: long randomised oracle tests"]

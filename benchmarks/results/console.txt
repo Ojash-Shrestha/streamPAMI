@@ -1,0 +1,262 @@
+Machine: Intel(R) Core(TM) i7-14650HX; Windows-10-10.0.26200-SP0; RAM=34.049 GB
+Versions: Python=3.11.9, pandas=3.0.6, PAMI=2026.10.13.1, matplotlib=3.11.2
+streamPAMI commit: ea79897f34a2829051bcaf62faca44184a9dd91b
+Data: 99935 transactions; batch sizes=10000;10000;10000;10000;10000;10000;10000;10000;10000;9935; SHA256=3fdde151ee63fbf9d608619352a0e69690cc55bc2faa11dc724337fbf413a2b1
+Randomised run order: seed=20261020; repetitions=5; scheduled_runs=100
+START run_index=1 start_utc=2026-10-19T15:42:52.386383+00:00 DSTree minSup=0.009 repetition=2 method=streamPAMI
+DONE run_index=1 DSTree minSup=0.009 repetition=2 method=streamPAMI patterns=423 runtime_s=12.932001 peak_memory_mb=264.953856
+START run_index=2 start_utc=2026-10-19T15:43:06.359218+00:00 FPStream minSup=0.008 repetition=5 method=pami
+DONE run_index=2 FPStream minSup=0.008 repetition=5 method=pami patterns=493 runtime_s=17.243853 peak_memory_mb=493.453312
+START run_index=3 start_utc=2026-10-19T15:43:24.772359+00:00 FPStream minSup=0.009 repetition=1 method=pami
+DONE run_index=3 FPStream minSup=0.009 repetition=1 method=pami patterns=421 runtime_s=16.921411 peak_memory_mb=474.144768
+START run_index=4 start_utc=2026-10-19T15:43:42.876207+00:00 FPStream minSup=0.006 repetition=2 method=pami
+DONE run_index=4 FPStream minSup=0.006 repetition=2 method=pami patterns=772 runtime_s=19.244457 peak_memory_mb=479.109120
+START run_index=5 start_utc=2026-10-19T15:44:03.300425+00:00 FPStream minSup=0.010 repetition=5 method=streamPAMI
+DONE run_index=5 FPStream minSup=0.010 repetition=5 method=streamPAMI patterns=421 runtime_s=13.921902 peak_memory_mb=197.537792
+START run_index=6 start_utc=2026-10-19T15:44:18.047092+00:00 DSTree minSup=0.008 repetition=4 method=streamPAMI
+DONE run_index=6 DSTree minSup=0.008 repetition=4 method=streamPAMI patterns=510 runtime_s=12.913180 peak_memory_mb=264.126464
+START run_index=7 start_utc=2026-10-19T15:44:32.026698+00:00 FPStream minSup=0.008 repetition=3 method=pami
+DONE run_index=7 FPStream minSup=0.008 repetition=3 method=pami patterns=493 runtime_s=17.422059 peak_memory_mb=494.460928
+START run_index=8 start_utc=2026-10-19T15:44:50.613989+00:00 DSTree minSup=0.009 repetition=4 method=streamPAMI
+DONE run_index=8 DSTree minSup=0.009 repetition=4 method=streamPAMI patterns=423 runtime_s=12.839981 peak_memory_mb=264.769536
+START run_index=9 start_utc=2026-10-19T15:45:04.454011+00:00 FPStream minSup=0.010 repetition=4 method=pami
+DONE run_index=9 FPStream minSup=0.010 repetition=4 method=pami patterns=385 runtime_s=15.885876 peak_memory_mb=441.282560
+START run_index=10 start_utc=2026-10-19T15:45:21.358157+00:00 FPStream minSup=0.010 repetition=3 method=streamPAMI
+DONE run_index=10 FPStream minSup=0.010 repetition=3 method=streamPAMI patterns=421 runtime_s=14.109499 peak_memory_mb=197.885952
+START run_index=11 start_utc=2026-10-19T15:45:36.313048+00:00 DSTree minSup=0.008 repetition=1 method=pami
+DONE run_index=11 DSTree minSup=0.008 repetition=1 method=pami patterns=510 runtime_s=8.442873 peak_memory_mb=276.168704
+START run_index=12 start_utc=2026-10-19T15:45:45.723549+00:00 DSTree minSup=0.009 repetition=3 method=pami
+DONE run_index=12 DSTree minSup=0.009 repetition=3 method=pami patterns=423 runtime_s=7.729518 peak_memory_mb=264.945664
+START run_index=13 start_utc=2026-10-19T15:45:54.388673+00:00 DSTree minSup=0.009 repetition=2 method=pami
+DONE run_index=13 DSTree minSup=0.009 repetition=2 method=pami patterns=423 runtime_s=7.725776 peak_memory_mb=264.507392
+CHECK DSTree minSup=0.009 repetition=2: identical patterns and supports at all 10 batches
+START run_index=14 start_utc=2026-10-19T15:46:03.038184+00:00 DSTree minSup=0.010 repetition=3 method=pami
+DONE run_index=14 DSTree minSup=0.010 repetition=3 method=pami patterns=385 runtime_s=7.405638 peak_memory_mb=262.848512
+START run_index=15 start_utc=2026-10-19T15:46:11.402155+00:00 FPStream minSup=0.007 repetition=2 method=streamPAMI
+DONE run_index=15 FPStream minSup=0.007 repetition=2 method=streamPAMI patterns=707 runtime_s=19.207860 peak_memory_mb=207.753216
+START run_index=16 start_utc=2026-10-19T15:46:31.490369+00:00 FPStream minSup=0.007 repetition=3 method=streamPAMI
+DONE run_index=16 FPStream minSup=0.007 repetition=3 method=streamPAMI patterns=707 runtime_s=18.995426 peak_memory_mb=207.433728
+START run_index=17 start_utc=2026-10-19T15:46:51.351281+00:00 DSTree minSup=0.007 repetition=1 method=pami
+DONE run_index=17 DSTree minSup=0.007 repetition=1 method=pami patterns=610 runtime_s=9.003179 peak_memory_mb=272.994304
+START run_index=18 start_utc=2026-10-19T15:47:01.308807+00:00 DSTree minSup=0.008 repetition=5 method=streamPAMI
+DONE run_index=18 DSTree minSup=0.008 repetition=5 method=streamPAMI patterns=510 runtime_s=13.088301 peak_memory_mb=263.790592
+START run_index=19 start_utc=2026-10-19T15:47:15.424590+00:00 DSTree minSup=0.007 repetition=5 method=pami
+DONE run_index=19 DSTree minSup=0.007 repetition=5 method=pami patterns=610 runtime_s=8.922421 peak_memory_mb=273.387520
+START run_index=20 start_utc=2026-10-19T15:47:25.298449+00:00 FPStream minSup=0.007 repetition=1 method=streamPAMI
+DONE run_index=20 FPStream minSup=0.007 repetition=1 method=streamPAMI patterns=707 runtime_s=19.141825 peak_memory_mb=207.814656
+START run_index=21 start_utc=2026-10-19T15:47:45.303386+00:00 FPStream minSup=0.006 repetition=5 method=streamPAMI
+DONE run_index=21 FPStream minSup=0.006 repetition=5 method=streamPAMI patterns=935 runtime_s=21.460260 peak_memory_mb=214.982656
+START run_index=22 start_utc=2026-10-19T15:48:07.707728+00:00 DSTree minSup=0.008 repetition=2 method=streamPAMI
+DONE run_index=22 DSTree minSup=0.008 repetition=2 method=streamPAMI patterns=510 runtime_s=13.127106 peak_memory_mb=263.729152
+START run_index=23 start_utc=2026-10-19T15:48:21.846564+00:00 FPStream minSup=0.010 repetition=4 method=streamPAMI
+DONE run_index=23 FPStream minSup=0.010 repetition=4 method=streamPAMI patterns=421 runtime_s=14.074871 peak_memory_mb=197.738496
+CHECK FPStream minSup=0.010 repetition=4: precision=0.914489 recall=1.000000
+START run_index=24 start_utc=2026-10-19T15:48:36.768544+00:00 DSTree minSup=0.010 repetition=1 method=pami
+DONE run_index=24 DSTree minSup=0.010 repetition=1 method=pami patterns=385 runtime_s=7.418335 peak_memory_mb=263.323648
+START run_index=25 start_utc=2026-10-19T15:48:45.118358+00:00 FPStream minSup=0.009 repetition=5 method=streamPAMI
+DONE run_index=25 FPStream minSup=0.009 repetition=5 method=streamPAMI patterns=479 runtime_s=15.581698 peak_memory_mb=203.223040
+START run_index=26 start_utc=2026-10-19T15:49:01.575318+00:00 DSTree minSup=0.007 repetition=2 method=streamPAMI
+DONE run_index=26 DSTree minSup=0.007 repetition=2 method=streamPAMI patterns=610 runtime_s=13.352936 peak_memory_mb=265.777152
+START run_index=27 start_utc=2026-10-19T15:49:15.946759+00:00 DSTree minSup=0.008 repetition=3 method=streamPAMI
+DONE run_index=27 DSTree minSup=0.008 repetition=3 method=streamPAMI patterns=510 runtime_s=13.170464 peak_memory_mb=263.979008
+START run_index=28 start_utc=2026-10-19T15:49:30.134746+00:00 DSTree minSup=0.006 repetition=1 method=streamPAMI
+DONE run_index=28 DSTree minSup=0.006 repetition=1 method=streamPAMI patterns=787 runtime_s=13.604210 peak_memory_mb=266.784768
+START run_index=29 start_utc=2026-10-19T15:49:44.790554+00:00 FPStream minSup=0.008 repetition=2 method=pami
+DONE run_index=29 FPStream minSup=0.008 repetition=2 method=pami patterns=493 runtime_s=17.249747 peak_memory_mb=493.789184
+START run_index=30 start_utc=2026-10-19T15:50:03.211912+00:00 DSTree minSup=0.008 repetition=4 method=pami
+DONE run_index=30 DSTree minSup=0.008 repetition=4 method=pami patterns=510 runtime_s=8.448560 peak_memory_mb=275.832832
+CHECK DSTree minSup=0.008 repetition=4: identical patterns and supports at all 10 batches
+START run_index=31 start_utc=2026-10-19T15:50:12.635252+00:00 FPStream minSup=0.010 repetition=2 method=streamPAMI
+DONE run_index=31 FPStream minSup=0.010 repetition=2 method=streamPAMI patterns=421 runtime_s=13.872455 peak_memory_mb=197.251072
+START run_index=32 start_utc=2026-10-19T15:50:27.325682+00:00 FPStream minSup=0.009 repetition=4 method=pami
+DONE run_index=32 FPStream minSup=0.009 repetition=4 method=pami patterns=421 runtime_s=16.907311 peak_memory_mb=473.812992
+START run_index=33 start_utc=2026-10-19T15:50:45.427327+00:00 DSTree minSup=0.006 repetition=4 method=pami
+DONE run_index=33 DSTree minSup=0.006 repetition=4 method=pami patterns=787 runtime_s=9.504287 peak_memory_mb=277.004288
+START run_index=34 start_utc=2026-10-19T15:50:55.888583+00:00 DSTree minSup=0.006 repetition=3 method=streamPAMI
+DONE run_index=34 DSTree minSup=0.006 repetition=3 method=streamPAMI patterns=787 runtime_s=13.455543 peak_memory_mb=266.502144
+START run_index=35 start_utc=2026-10-19T15:51:10.400764+00:00 FPStream minSup=0.006 repetition=1 method=pami
+DONE run_index=35 FPStream minSup=0.006 repetition=1 method=pami patterns=772 runtime_s=19.379097 peak_memory_mb=478.990336
+START run_index=36 start_utc=2026-10-19T15:51:30.978280+00:00 FPStream minSup=0.010 repetition=5 method=pami
+DONE run_index=36 FPStream minSup=0.010 repetition=5 method=pami patterns=385 runtime_s=16.031745 peak_memory_mb=440.651776
+CHECK FPStream minSup=0.010 repetition=5: precision=0.914489 recall=1.000000
+START run_index=37 start_utc=2026-10-19T15:51:48.039623+00:00 FPStream minSup=0.008 repetition=1 method=streamPAMI
+DONE run_index=37 FPStream minSup=0.008 repetition=1 method=streamPAMI patterns=583 runtime_s=16.811946 peak_memory_mb=202.461184
+START run_index=38 start_utc=2026-10-19T15:52:05.758101+00:00 FPStream minSup=0.010 repetition=3 method=pami
+DONE run_index=38 FPStream minSup=0.010 repetition=3 method=pami patterns=385 runtime_s=15.977378 peak_memory_mb=440.455168
+CHECK FPStream minSup=0.010 repetition=3: precision=0.914489 recall=1.000000
+START run_index=39 start_utc=2026-10-19T15:52:22.806737+00:00 FPStream minSup=0.007 repetition=3 method=pami
+DONE run_index=39 FPStream minSup=0.007 repetition=3 method=pami patterns=603 runtime_s=18.165064 peak_memory_mb=469.458944
+CHECK FPStream minSup=0.007 repetition=3: precision=0.852900 recall=1.000000
+START run_index=40 start_utc=2026-10-19T15:52:42.121768+00:00 DSTree minSup=0.008 repetition=5 method=pami
+DONE run_index=40 DSTree minSup=0.008 repetition=5 method=pami patterns=510 runtime_s=8.511932 peak_memory_mb=274.407424
+CHECK DSTree minSup=0.008 repetition=5: identical patterns and supports at all 10 batches
+START run_index=41 start_utc=2026-10-19T15:52:51.594345+00:00 FPStream minSup=0.008 repetition=4 method=pami
+DONE run_index=41 FPStream minSup=0.008 repetition=4 method=pami patterns=493 runtime_s=17.230830 peak_memory_mb=493.637632
+START run_index=42 start_utc=2026-10-19T15:53:10.028248+00:00 FPStream minSup=0.006 repetition=3 method=pami
+DONE run_index=42 FPStream minSup=0.006 repetition=3 method=pami patterns=772 runtime_s=20.108350 peak_memory_mb=479.043584
+START run_index=43 start_utc=2026-10-19T15:53:31.318124+00:00 DSTree minSup=0.010 repetition=4 method=streamPAMI
+DONE run_index=43 DSTree minSup=0.010 repetition=4 method=streamPAMI patterns=385 runtime_s=12.618149 peak_memory_mb=265.224192
+START run_index=44 start_utc=2026-10-19T15:53:44.957070+00:00 DSTree minSup=0.010 repetition=2 method=pami
+DONE run_index=44 DSTree minSup=0.010 repetition=2 method=pami patterns=385 runtime_s=7.466779 peak_memory_mb=262.365184
+START run_index=45 start_utc=2026-10-19T15:53:53.372935+00:00 FPStream minSup=0.009 repetition=4 method=streamPAMI
+DONE run_index=45 FPStream minSup=0.009 repetition=4 method=streamPAMI patterns=479 runtime_s=18.784528 peak_memory_mb=202.899456
+CHECK FPStream minSup=0.009 repetition=4: precision=0.878914 recall=1.000000
+START run_index=46 start_utc=2026-10-19T15:54:13.073656+00:00 FPStream minSup=0.009 repetition=2 method=streamPAMI
+DONE run_index=46 FPStream minSup=0.009 repetition=2 method=streamPAMI patterns=479 runtime_s=16.669571 peak_memory_mb=202.829824
+START run_index=47 start_utc=2026-10-19T15:54:30.772480+00:00 DSTree minSup=0.008 repetition=1 method=streamPAMI
+DONE run_index=47 DSTree minSup=0.008 repetition=1 method=streamPAMI patterns=510 runtime_s=13.319717 peak_memory_mb=263.634944
+CHECK DSTree minSup=0.008 repetition=1: identical patterns and supports at all 10 batches
+START run_index=48 start_utc=2026-10-19T15:54:45.190175+00:00 DSTree minSup=0.009 repetition=5 method=streamPAMI
+DONE run_index=48 DSTree minSup=0.009 repetition=5 method=streamPAMI patterns=423 runtime_s=13.436023 peak_memory_mb=265.097216
+START run_index=49 start_utc=2026-10-19T15:54:59.718989+00:00 DSTree minSup=0.008 repetition=3 method=pami
+DONE run_index=49 DSTree minSup=0.008 repetition=3 method=pami patterns=510 runtime_s=9.540292 peak_memory_mb=276.643840
+CHECK DSTree minSup=0.008 repetition=3: identical patterns and supports at all 10 batches
+START run_index=50 start_utc=2026-10-19T15:55:10.379318+00:00 DSTree minSup=0.007 repetition=3 method=pami
+DONE run_index=50 DSTree minSup=0.007 repetition=3 method=pami patterns=610 runtime_s=10.233243 peak_memory_mb=273.453056
+START run_index=51 start_utc=2026-10-19T15:55:21.718154+00:00 DSTree minSup=0.007 repetition=4 method=streamPAMI
+DONE run_index=51 DSTree minSup=0.007 repetition=4 method=streamPAMI patterns=610 runtime_s=15.763606 peak_memory_mb=265.244672
+START run_index=52 start_utc=2026-10-19T15:55:38.618268+00:00 FPStream minSup=0.008 repetition=5 method=streamPAMI
+DONE run_index=52 FPStream minSup=0.008 repetition=5 method=streamPAMI patterns=583 runtime_s=21.181347 peak_memory_mb=203.022336
+CHECK FPStream minSup=0.008 repetition=5: precision=0.845626 recall=1.000000
+START run_index=53 start_utc=2026-10-19T15:56:00.892747+00:00 DSTree minSup=0.007 repetition=5 method=streamPAMI
+DONE run_index=53 DSTree minSup=0.007 repetition=5 method=streamPAMI patterns=610 runtime_s=16.187365 peak_memory_mb=265.437184
+CHECK DSTree minSup=0.007 repetition=5: identical patterns and supports at all 10 batches
+START run_index=54 start_utc=2026-10-19T15:56:18.273570+00:00 FPStream minSup=0.009 repetition=3 method=pami
+DONE run_index=54 FPStream minSup=0.009 repetition=3 method=pami patterns=421 runtime_s=19.265924 peak_memory_mb=474.177536
+START run_index=55 start_utc=2026-10-19T15:56:39.044640+00:00 FPStream minSup=0.006 repetition=4 method=pami
+DONE run_index=55 FPStream minSup=0.006 repetition=4 method=pami patterns=772 runtime_s=22.346130 peak_memory_mb=478.740480
+START run_index=56 start_utc=2026-10-19T15:57:02.861439+00:00 DSTree minSup=0.010 repetition=4 method=pami
+DONE run_index=56 DSTree minSup=0.010 repetition=4 method=pami patterns=385 runtime_s=8.835910 peak_memory_mb=262.721536
+CHECK DSTree minSup=0.010 repetition=4: identical patterns and supports at all 10 batches
+START run_index=57 start_utc=2026-10-19T15:57:12.847650+00:00 FPStream minSup=0.009 repetition=3 method=streamPAMI
+DONE run_index=57 FPStream minSup=0.009 repetition=3 method=streamPAMI patterns=479 runtime_s=18.959849 peak_memory_mb=203.358208
+CHECK FPStream minSup=0.009 repetition=3: precision=0.878914 recall=1.000000
+START run_index=58 start_utc=2026-10-19T15:57:32.851821+00:00 FPStream minSup=0.010 repetition=1 method=streamPAMI
+DONE run_index=58 FPStream minSup=0.010 repetition=1 method=streamPAMI patterns=421 runtime_s=17.735839 peak_memory_mb=197.492736
+START run_index=59 start_utc=2026-10-19T15:57:51.620718+00:00 FPStream minSup=0.006 repetition=1 method=streamPAMI
+DONE run_index=59 FPStream minSup=0.006 repetition=1 method=streamPAMI patterns=935 runtime_s=26.792041 peak_memory_mb=215.273472
+CHECK FPStream minSup=0.006 repetition=1: precision=0.825668 recall=1.000000
+START run_index=60 start_utc=2026-10-19T15:58:19.570514+00:00 FPStream minSup=0.007 repetition=4 method=pami
+DONE run_index=60 FPStream minSup=0.007 repetition=4 method=pami patterns=603 runtime_s=21.395002 peak_memory_mb=469.381120
+START run_index=61 start_utc=2026-10-19T15:58:42.314278+00:00 DSTree minSup=0.006 repetition=1 method=pami
+DONE run_index=61 DSTree minSup=0.006 repetition=1 method=pami patterns=787 runtime_s=10.759684 peak_memory_mb=276.656128
+CHECK DSTree minSup=0.006 repetition=1: identical patterns and supports at all 10 batches
+START run_index=62 start_utc=2026-10-19T15:58:54.245695+00:00 DSTree minSup=0.009 repetition=1 method=streamPAMI
+DONE run_index=62 DSTree minSup=0.009 repetition=1 method=streamPAMI patterns=423 runtime_s=15.749322 peak_memory_mb=265.011200
+START run_index=63 start_utc=2026-10-19T15:59:11.197141+00:00 DSTree minSup=0.006 repetition=2 method=pami
+DONE run_index=63 DSTree minSup=0.006 repetition=2 method=pami patterns=787 runtime_s=10.368778 peak_memory_mb=277.004288
+START run_index=64 start_utc=2026-10-19T15:59:22.693985+00:00 DSTree minSup=0.010 repetition=3 method=streamPAMI
+DONE run_index=64 DSTree minSup=0.010 repetition=3 method=streamPAMI patterns=385 runtime_s=12.064419 peak_memory_mb=264.916992
+CHECK DSTree minSup=0.010 repetition=3: identical patterns and supports at all 10 batches
+START run_index=65 start_utc=2026-10-19T15:59:35.772266+00:00 DSTree minSup=0.009 repetition=1 method=pami
+DONE run_index=65 DSTree minSup=0.009 repetition=1 method=pami patterns=423 runtime_s=7.543362 peak_memory_mb=267.390976
+CHECK DSTree minSup=0.009 repetition=1: identical patterns and supports at all 10 batches
+START run_index=66 start_utc=2026-10-19T15:59:44.285097+00:00 DSTree minSup=0.006 repetition=2 method=streamPAMI
+DONE run_index=66 DSTree minSup=0.006 repetition=2 method=streamPAMI patterns=787 runtime_s=12.583275 peak_memory_mb=266.772480
+CHECK DSTree minSup=0.006 repetition=2: identical patterns and supports at all 10 batches
+START run_index=67 start_utc=2026-10-19T15:59:57.903873+00:00 DSTree minSup=0.009 repetition=5 method=pami
+DONE run_index=67 DSTree minSup=0.009 repetition=5 method=pami patterns=423 runtime_s=7.531097 peak_memory_mb=267.919360
+CHECK DSTree minSup=0.009 repetition=5: identical patterns and supports at all 10 batches
+START run_index=68 start_utc=2026-10-19T16:00:06.404898+00:00 FPStream minSup=0.009 repetition=1 method=streamPAMI
+DONE run_index=68 FPStream minSup=0.009 repetition=1 method=streamPAMI patterns=479 runtime_s=14.423598 peak_memory_mb=202.608640
+CHECK FPStream minSup=0.009 repetition=1: precision=0.878914 recall=1.000000
+START run_index=69 start_utc=2026-10-19T16:00:21.673985+00:00 DSTree minSup=0.006 repetition=3 method=pami
+DONE run_index=69 DSTree minSup=0.006 repetition=3 method=pami patterns=787 runtime_s=8.990708 peak_memory_mb=276.787200
+CHECK DSTree minSup=0.006 repetition=3: identical patterns and supports at all 10 batches
+START run_index=70 start_utc=2026-10-19T16:00:31.661443+00:00 DSTree minSup=0.006 repetition=5 method=streamPAMI
+DONE run_index=70 DSTree minSup=0.006 repetition=5 method=streamPAMI patterns=787 runtime_s=12.532636 peak_memory_mb=266.547200
+START run_index=71 start_utc=2026-10-19T16:00:45.207889+00:00 FPStream minSup=0.009 repetition=5 method=pami
+DONE run_index=71 FPStream minSup=0.009 repetition=5 method=pami patterns=421 runtime_s=16.276821 peak_memory_mb=474.247168
+CHECK FPStream minSup=0.009 repetition=5: precision=0.878914 recall=1.000000
+START run_index=72 start_utc=2026-10-19T16:01:02.662490+00:00 FPStream minSup=0.007 repetition=5 method=pami
+DONE run_index=72 FPStream minSup=0.007 repetition=5 method=pami patterns=603 runtime_s=17.289626 peak_memory_mb=468.914176
+START run_index=73 start_utc=2026-10-19T16:01:21.074831+00:00 FPStream minSup=0.008 repetition=1 method=pami
+DONE run_index=73 FPStream minSup=0.008 repetition=1 method=pami patterns=493 runtime_s=16.442674 peak_memory_mb=493.690880
+CHECK FPStream minSup=0.008 repetition=1: precision=0.845626 recall=1.000000
+START run_index=74 start_utc=2026-10-19T16:01:38.709674+00:00 DSTree minSup=0.009 repetition=3 method=streamPAMI
+DONE run_index=74 DSTree minSup=0.009 repetition=3 method=streamPAMI patterns=423 runtime_s=12.133187 peak_memory_mb=264.437760
+CHECK DSTree minSup=0.009 repetition=3: identical patterns and supports at all 10 batches
+START run_index=75 start_utc=2026-10-19T16:01:51.848858+00:00 FPStream minSup=0.006 repetition=2 method=streamPAMI
+DONE run_index=75 FPStream minSup=0.006 repetition=2 method=streamPAMI patterns=935 runtime_s=19.992292 peak_memory_mb=214.360064
+CHECK FPStream minSup=0.006 repetition=2: precision=0.825668 recall=1.000000
+START run_index=76 start_utc=2026-10-19T16:02:12.784736+00:00 FPStream minSup=0.007 repetition=5 method=streamPAMI
+DONE run_index=76 FPStream minSup=0.007 repetition=5 method=streamPAMI patterns=707 runtime_s=17.787320 peak_memory_mb=207.298560
+CHECK FPStream minSup=0.007 repetition=5: precision=0.852900 recall=1.000000
+START run_index=77 start_utc=2026-10-19T16:02:31.484864+00:00 DSTree minSup=0.010 repetition=5 method=pami
+DONE run_index=77 DSTree minSup=0.010 repetition=5 method=pami patterns=385 runtime_s=7.105052 peak_memory_mb=262.336512
+START run_index=78 start_utc=2026-10-19T16:02:39.513372+00:00 DSTree minSup=0.007 repetition=3 method=streamPAMI
+DONE run_index=78 DSTree minSup=0.007 repetition=3 method=streamPAMI patterns=610 runtime_s=12.484910 peak_memory_mb=265.449472
+CHECK DSTree minSup=0.007 repetition=3: identical patterns and supports at all 10 batches
+START run_index=79 start_utc=2026-10-19T16:02:53.024544+00:00 FPStream minSup=0.008 repetition=4 method=streamPAMI
+DONE run_index=79 FPStream minSup=0.008 repetition=4 method=streamPAMI patterns=583 runtime_s=15.704166 peak_memory_mb=202.567680
+CHECK FPStream minSup=0.008 repetition=4: precision=0.845626 recall=1.000000
+START run_index=80 start_utc=2026-10-19T16:03:09.600619+00:00 DSTree minSup=0.008 repetition=2 method=pami
+DONE run_index=80 DSTree minSup=0.008 repetition=2 method=pami patterns=510 runtime_s=11.660022 peak_memory_mb=275.755008
+CHECK DSTree minSup=0.008 repetition=2: identical patterns and supports at all 10 batches
+START run_index=81 start_utc=2026-10-19T16:03:22.541100+00:00 FPStream minSup=0.007 repetition=2 method=pami
+DONE run_index=81 FPStream minSup=0.007 repetition=2 method=pami patterns=603 runtime_s=28.764539 peak_memory_mb=469.909504
+CHECK FPStream minSup=0.007 repetition=2: precision=0.852900 recall=1.000000
+START run_index=82 start_utc=2026-10-19T16:03:53.088582+00:00 DSTree minSup=0.006 repetition=5 method=pami
+DONE run_index=82 DSTree minSup=0.006 repetition=5 method=pami patterns=787 runtime_s=13.706326 peak_memory_mb=277.106688
+CHECK DSTree minSup=0.006 repetition=5: identical patterns and supports at all 10 batches
+START run_index=83 start_utc=2026-10-19T16:04:08.081405+00:00 FPStream minSup=0.009 repetition=2 method=pami
+DONE run_index=83 FPStream minSup=0.009 repetition=2 method=pami patterns=421 runtime_s=25.905601 peak_memory_mb=474.038272
+CHECK FPStream minSup=0.009 repetition=2: precision=0.878914 recall=1.000000
+START run_index=84 start_utc=2026-10-19T16:04:35.684870+00:00 FPStream minSup=0.006 repetition=4 method=streamPAMI
+DONE run_index=84 FPStream minSup=0.006 repetition=4 method=streamPAMI patterns=935 runtime_s=34.764449 peak_memory_mb=214.618112
+CHECK FPStream minSup=0.006 repetition=4: precision=0.825668 recall=1.000000
+START run_index=85 start_utc=2026-10-19T16:05:11.662514+00:00 FPStream minSup=0.008 repetition=2 method=streamPAMI
+DONE run_index=85 FPStream minSup=0.008 repetition=2 method=streamPAMI patterns=583 runtime_s=26.468228 peak_memory_mb=202.788864
+CHECK FPStream minSup=0.008 repetition=2: precision=0.845626 recall=1.000000
+START run_index=86 start_utc=2026-10-19T16:05:39.220833+00:00 DSTree minSup=0.007 repetition=1 method=streamPAMI
+DONE run_index=86 DSTree minSup=0.007 repetition=1 method=streamPAMI patterns=610 runtime_s=20.075999 peak_memory_mb=265.474048
+CHECK DSTree minSup=0.007 repetition=1: identical patterns and supports at all 10 batches
+START run_index=87 start_utc=2026-10-19T16:06:00.646635+00:00 FPStream minSup=0.010 repetition=2 method=pami
+DONE run_index=87 FPStream minSup=0.010 repetition=2 method=pami patterns=385 runtime_s=24.063888 peak_memory_mb=440.057856
+CHECK FPStream minSup=0.010 repetition=2: precision=0.914489 recall=1.000000
+START run_index=88 start_utc=2026-10-19T16:06:26.044773+00:00 FPStream minSup=0.006 repetition=5 method=pami
+DONE run_index=88 FPStream minSup=0.006 repetition=5 method=pami patterns=772 runtime_s=28.139239 peak_memory_mb=478.515200
+CHECK FPStream minSup=0.006 repetition=5: precision=0.825668 recall=1.000000
+START run_index=89 start_utc=2026-10-19T16:06:55.600864+00:00 FPStream minSup=0.007 repetition=4 method=streamPAMI
+DONE run_index=89 FPStream minSup=0.007 repetition=4 method=streamPAMI patterns=707 runtime_s=17.916035 peak_memory_mb=207.867904
+CHECK FPStream minSup=0.007 repetition=4: precision=0.852900 recall=1.000000
+START run_index=90 start_utc=2026-10-19T16:07:14.507268+00:00 FPStream minSup=0.007 repetition=1 method=pami
+DONE run_index=90 FPStream minSup=0.007 repetition=1 method=pami patterns=603 runtime_s=18.072655 peak_memory_mb=469.549056
+CHECK FPStream minSup=0.007 repetition=1: precision=0.852900 recall=1.000000
+START run_index=91 start_utc=2026-10-19T16:07:33.739838+00:00 DSTree minSup=0.007 repetition=4 method=pami
+DONE run_index=91 DSTree minSup=0.007 repetition=4 method=pami patterns=610 runtime_s=8.713700 peak_memory_mb=272.084992
+CHECK DSTree minSup=0.007 repetition=4: identical patterns and supports at all 10 batches
+START run_index=92 start_utc=2026-10-19T16:07:43.458518+00:00 DSTree minSup=0.010 repetition=2 method=streamPAMI
+DONE run_index=92 DSTree minSup=0.010 repetition=2 method=streamPAMI patterns=385 runtime_s=12.517435 peak_memory_mb=265.154560
+CHECK DSTree minSup=0.010 repetition=2: identical patterns and supports at all 10 batches
+START run_index=93 start_utc=2026-10-19T16:07:57.029391+00:00 FPStream minSup=0.006 repetition=3 method=streamPAMI
+DONE run_index=93 FPStream minSup=0.006 repetition=3 method=streamPAMI patterns=935 runtime_s=20.672552 peak_memory_mb=214.900736
+CHECK FPStream minSup=0.006 repetition=3: precision=0.825668 recall=1.000000
+START run_index=94 start_utc=2026-10-19T16:08:18.705806+00:00 DSTree minSup=0.007 repetition=2 method=pami
+DONE run_index=94 DSTree minSup=0.007 repetition=2 method=pami patterns=610 runtime_s=9.132147 peak_memory_mb=273.125376
+CHECK DSTree minSup=0.007 repetition=2: identical patterns and supports at all 10 batches
+START run_index=95 start_utc=2026-10-19T16:08:28.884650+00:00 FPStream minSup=0.008 repetition=3 method=streamPAMI
+DONE run_index=95 FPStream minSup=0.008 repetition=3 method=streamPAMI patterns=583 runtime_s=15.700586 peak_memory_mb=202.461184
+CHECK FPStream minSup=0.008 repetition=3: precision=0.845626 recall=1.000000
+START run_index=96 start_utc=2026-10-19T16:08:45.509538+00:00 FPStream minSup=0.010 repetition=1 method=pami
+DONE run_index=96 FPStream minSup=0.010 repetition=1 method=pami patterns=385 runtime_s=15.534374 peak_memory_mb=440.102912
+CHECK FPStream minSup=0.010 repetition=1: precision=0.914489 recall=1.000000
+START run_index=97 start_utc=2026-10-19T16:09:02.118530+00:00 DSTree minSup=0.009 repetition=4 method=pami
+DONE run_index=97 DSTree minSup=0.009 repetition=4 method=pami patterns=423 runtime_s=7.694490 peak_memory_mb=265.998336
+CHECK DSTree minSup=0.009 repetition=4: identical patterns and supports at all 10 batches
+START run_index=98 start_utc=2026-10-19T16:09:10.785724+00:00 DSTree minSup=0.010 repetition=1 method=streamPAMI
+DONE run_index=98 DSTree minSup=0.010 repetition=1 method=streamPAMI patterns=385 runtime_s=12.117345 peak_memory_mb=265.289728
+CHECK DSTree minSup=0.010 repetition=1: identical patterns and supports at all 10 batches
+START run_index=99 start_utc=2026-10-19T16:09:23.973719+00:00 DSTree minSup=0.006 repetition=4 method=streamPAMI
+DONE run_index=99 DSTree minSup=0.006 repetition=4 method=streamPAMI patterns=787 runtime_s=14.704557 peak_memory_mb=267.014144
+CHECK DSTree minSup=0.006 repetition=4: identical patterns and supports at all 10 batches
+START run_index=100 start_utc=2026-10-19T16:09:39.808617+00:00 DSTree minSup=0.010 repetition=5 method=streamPAMI
+DONE run_index=100 DSTree minSup=0.010 repetition=5 method=streamPAMI patterns=385 runtime_s=12.506892 peak_memory_mb=264.675328
+CHECK DSTree minSup=0.010 repetition=5: identical patterns and supports at all 10 batches
+Completed 100 fresh subprocesses in 1620.914 s.
+Run order: seed=20261020; 5 repetitions; run_index=1..100; start_utc recorded for every run.
+Correctness: FP-Stream recall=1.0 in 25 checks; DSTree identical in 250 batch comparisons.
+Summary: median runtime and median peak memory, with min-max ranges; no averaging of pattern counts.
+Runtime labels use disjoint min-max ranges; overlapping or touching ranges are similar.
+FPStream runtime vs PAMI: 0.006=similar; 0.007=similar; 0.008=similar; 0.009=similar; 0.010=similar
+DSTree runtime vs PAMI: 0.006=similar; 0.007=slower; 0.008=slower; 0.009=slower; 0.010=slower
