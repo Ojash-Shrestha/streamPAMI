@@ -159,6 +159,8 @@ peak-memory ranges were below PAMI's at every setting on this laptop.
 
 ### DSTree: last three batches
 
+streamPAMI's DSTree is an eager-maintenance variant (see its docstring), so runtime and memory describe this implementation, not the original authors' design.
+
 DSTree's pattern sets and supports matched PAMI after every batch in all
 repetitions. Runtimes were similar at minSup 0.006. DSTree was slower at 0.007,
 0.008, 0.009 and 0.010, where the runtime ranges did not overlap PAMI's. Its
@@ -354,5 +356,7 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
 - C. Giannella, J. Han, J. Pei, X. Yan and P. S. Yu, "Mining Frequent Patterns in Data Streams at
   Multiple Time Granularities", *Next Generation Data Mining*, 2003.
   [PDF](https://www2.cs.sfu.ca/~jpei/publications/fpstm03.pdf)
+- C. K.-S. Leung and Q. I. Khan, "DSTree: A Tree Structure for the Mining of Frequent
+  Sets from Data Streams", Proc. IEEE ICDM, 2006, pp. 928-932, doi:10.1109/ICDM.2006.62.
 
 [Go to Top](#table-of-contents)

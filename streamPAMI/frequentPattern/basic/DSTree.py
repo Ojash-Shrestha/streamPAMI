@@ -1,7 +1,8 @@
 """DSTree: exact frequent itemsets over a sliding window of batches.
 
 Reference: C. K.-S. Leung and Q. I. Khan, "DSTree: A Tree Structure for the
-Mining of Frequent Sets from Data Streams", Proc. IEEE ICDM 2006, pp. 928-932.
+Mining of Frequent Sets from Data Streams", Proc. IEEE ICDM, 2006, pp. 928-932,
+doi:10.1109/ICDM.2006.62.
 
 Every query returns exactly the non-empty itemsets with support >= minSup * W,
 where W includes empty transactions in the queried batches. Thresholds use
@@ -10,15 +11,27 @@ window and are returned newest first, with end-exclusive batch boundaries.
 Mining uses FP-growth over tree paths only when queried; processBatch does not
 mine itemsets. mine stores the result for the whole current window.
 
-Design choices to confirm against the paper
------------------------------------------
-* [CONFIRM] The prefix tree uses a fixed, frequency-independent canonical order:
-  lexicographic by item string. This order never changes.
-* [CONFIRM] Every node stores a list of counts, one per batch slot in the window.
-  The count slots are oldest first, even though the public frames are newest first.
-* [CONFIRM] Sliding drops the oldest slot from every node. Nodes whose counts are
-  all zero are removed eagerly; the paper may remove them lazily, with identical
-  query results.
+Correspondence with the paper (Leung & Khan, ICDM 2006, Sec. 3)
+------------------------------------------------------------
+* Item order: fixed canonical order, lexicographic by item string. The paper
+  allows any consistent canonical order, including lexicographic or alphabetical,
+  and the order never changes with item frequencies. (MATCH)
+* Node counts: every node keeps one count per batch in the window. (MATCH)
+* Window maintenance: this implementation is an EAGER-MAINTENANCE VARIANT. On
+  each slide it drops the oldest batch's count from every node and removes
+  all-zero nodes immediately. The paper defers this work with a per-node "last
+  update" pointer, and does not specify when all-zero nodes are physically
+  deleted. Query results are identical, because a node's count never exceeds
+  its parent's in any batch. Update time and memory can differ from the original
+  design.
+* Window unit: batches. (MATCH)
+* Threshold: an itemset is returned when count >= minSup * N, where N is the
+  number of transactions in the QUERIED batch range. The paper uses an absolute
+  count in its example and percentages in its experiments, and does not define
+  the conversion; this relative convention is streamPAMI's choice.
+* Mining only when queried, FP-growth-style. (MATCH)
+* Exactness: the paper claims no false positives or false negatives. streamPAMI
+  checks this against a brute-force miner after every batch (tests/test_DSTree.py).
 
 The tree holds every transaction of the window, compressed by shared prefixes.
 Memory grows with the window's transactions (windowSize * batchSize for fixed
