@@ -109,6 +109,16 @@ denominator; blank lines in files and URLs are skipped. Its tree retains the win
 transactions, compressed by shared prefixes, so memory grows with the window and its per-node
 batch counts; it has no epsilon-bounded summary.
 
+**Lossy Counting** (Manku and Motwani, 2002) uses a landmark window: queries cover
+the whole processed stream of N transactions. Every itemset with true count
+at least minSup * N is returned; no output has true count below
+(minSup - epsilon) * N; each reported count is between the true count minus
+epsilon * N and the true count. `batchSize` must be a multiple of
+`ceil(1/epsilon)`. Trailing transactions that do not fill a bucket are held
+unprocessed, excluded from N and the guarantees, and reported with a warning and
+`getHeldCount()`. The paper's Buffer/Trie/SetGen data structures and SetGen pruning
+are not reproduced; every tracked itemset is counted exactly each batch.
+
 ***
 
 # Evaluation
@@ -347,7 +357,7 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
 
 | Basic | Closed | Maximal | Top-k |
 |---|---|---|---|
-| FP-Stream, DSTree | | | |
+| FP-Stream, DSTree, Lossy Counting | | | |
 
 ***
 
@@ -358,5 +368,7 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
   [PDF](https://www2.cs.sfu.ca/~jpei/publications/fpstm03.pdf)
 - C. K.-S. Leung and Q. I. Khan, "DSTree: A Tree Structure for the Mining of Frequent
   Sets from Data Streams", Proc. IEEE ICDM, 2006, pp. 928-932, doi:10.1109/ICDM.2006.62.
+- G. S. Manku and R. Motwani, "Approximate Frequency Counts over Data Streams",
+  Proc. 28th VLDB Conference, Hong Kong, 2002.
 
 [Go to Top](#table-of-contents)
