@@ -7,6 +7,7 @@
 # Table of Contents
 
 - [Introduction](#introduction)
+- [Documentation and Tutorials](#documentation-and-tutorials)
 - [Development Workflow of an Algorithm in streamPAMI](#development-workflow-of-an-algorithm-in-streampami)
 - [Inputs and Outputs of an Algorithm in streamPAMI](#inputs-and-outputs-of-an-algorithm-in-streampami)
 - [Accuracy Guarantees](#accuracy-guarantees)
@@ -42,6 +43,20 @@ package layout and the same method names, so PAMI users can start without learni
 | Live data | no | yes: `processBatch()` / `queryPatterns()` |
 
 <!-- TODO(Ojash): add links (tutorials, datasets, discussions) once they exist, as in PAMI's Introduction. -->
+
+***
+
+# Documentation and Tutorials
+
+Start with the [documentation index](./docs/README.md) for installation, the
+common API and help choosing an algorithm. Each notebook contains executed
+examples for replaying a dataset and feeding live batches.
+
+| Algorithm | Docs page | Notebook | Colab |
+|---|---|---|---|
+| FPStream | [Documentation](./docs/frequentPattern/basic/FPStream.md) | [Tutorial](./notebooks/frequentPattern/basic/FPStream.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/FPStream.ipynb) |
+| DSTree | [Documentation](./docs/frequentPattern/basic/DSTree.md) | [Tutorial](./notebooks/frequentPattern/basic/DSTree.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/DSTree.ipynb) |
+| LossyCounting | [Documentation](./docs/frequentPattern/basic/LossyCounting.md) | [Tutorial](./notebooks/frequentPattern/basic/LossyCounting.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/LossyCounting.ipynb) |
 
 ***
 
