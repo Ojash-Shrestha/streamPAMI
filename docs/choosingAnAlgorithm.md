@@ -2,7 +2,8 @@
 
 All three miners accept relative support thresholds and return counts. Their
 query horizons and retained state differ. See [getting started](gettingStarted.md)
-for the shared API; constructor thresholds are fixed for a miner's run.
+for the shared API. The constructor's minSup is the default; DSTree can override
+it for each query without replaying the stream.
 
 | Question | FPStream | DSTree | LossyCounting |
 |---|---|---|---|
@@ -11,7 +12,7 @@ for the shared API; constructor thresholds are fixed for a miner's run.
 | What is stored? | Retained itemsets and pruned per-frame support tables. | Window transactions in a canonical prefix tree, with per-batch node counts. | Itemset counts and error bounds in a dictionary; temporary batch FP-tree and item occurrence sets. |
 | Memory behaviour | Depends on retained itemsets and logarithmic frame history; tighter error can retain more. | Grows with window transactions, prefix sharing and per-node batch counts. | Depends on retained itemsets, batch size and the held suffix; this is not the paper's Trie/SetGen layout. |
 | When does mining work happen? | FP-growth during batch updates; queries sum retained tables. | Updates maintain the tree; FP-growth runs only when queried. | FP-growth and exact tracked-itemset counting during updates; queries filter stored counts. |
-| Can minSup change at query time? | No query parameter; construct a new miner and replay. | No query parameter; construct a new miner and replay. | No query parameter; construct a new miner and replay. |
+| Can minSup change at query time? | No: counts below the construction-time epsilon threshold are discarded; construct a new miner and replay. | Yes: pass `minSup` to `queryPatterns`. | No: counts below the construction-time epsilon threshold are discarded; construct a new miner and replay. |
 | Main weakness | Guaranteed recall requires `minSup > 2*epsilon` and a period starting at the newest frame; older periods have a known limitation. | Retains the current window's compressed transactions; repeated queries repeat mining work. | No historical subrange queries; batches must contain whole buckets and trailing input may be held. |
 
 ## Use FPStream when

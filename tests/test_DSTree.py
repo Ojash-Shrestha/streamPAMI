@@ -283,3 +283,132 @@ def test_random_stream_exact_oracle_and_tree_invariants(window_size):
                     expected = {pattern: count for pattern, count in true.items() if count >= threshold}
                     actual = miner.queryPatterns(start, end)
                     assert actual == expected, f"{context}, range=({start}, {end}), W={weight}"
+
+
+def test_query_min_sup_none_matches_constructor():
+    miner = DSTree(None, 0.5, 2, 5)
+    miner.processBatch([["x"], ["x"], ["x"], [], []])
+    miner.processBatch([["y"] for _ in range(5)])
+    expected = {(0, 1): {("y",): 5}, (1, 2): {("x",): 3},
+                (0, 2): {("y",): 5}, (0, 0): {}, (2, 2): {}}
+    for (start, end), patterns in expected.items():
+        assert miner.queryPatterns(start, end) == patterns
+        assert miner.queryPatterns(start, end, minSup=None) == patterns
+    assert miner.queryPatterns() == miner.queryPatterns(minSup=None) == {("y",): 5}
+
+
+def test_query_min_sup_does_not_change_stored_state():
+    source = pd.DataFrame({"Transactions": [["x"]] * 3 + [["y"]] * 5 + [[], []]})
+    miner = DSTree(source, 0.5, 2, 5).mine()
+    root = miner._root
+    nodes = [(node, node.parent, dict(node.children), list(node.counts)) for node in miner._nodes()]
+    patterns = miner.getPatterns()
+    saved_patterns = dict(patterns)
+    state = (miner.minSup, miner._min_sup, miner.getRuntime(), miner.getMemoryUSS(),
+             miner.getMemoryRSS(), miner._batch_count, list(miner._batches),
+             miner.getTimeFrames(), miner.getFrameWeights())
+    assert miner.queryPatterns(minSup=0.3) == {("x",): 3, ("y",): 5}
+    assert miner.queryPatterns(minSup=0.9) == {}
+    assert (miner.minSup, miner._min_sup, miner.getRuntime(), miner.getMemoryUSS(),
+            miner.getMemoryRSS(), miner._batch_count, list(miner._batches),
+            miner.getTimeFrames(), miner.getFrameWeights()) == state
+    assert miner.getPatterns() is patterns and patterns == saved_patterns == {("y",): 5}
+    assert miner._root is root
+    assert list(miner._nodes()) == [node for node, _, _, _ in nodes]
+    for node, parent, children, counts in nodes:
+        assert node.parent is parent and node.children == children and node.counts == counts
+    assert miner.queryPatterns() == miner.queryPatterns(minSup=None) == saved_patterns
+    miner.mine()
+    assert miner.getPatterns() == saved_patterns  # mine() still uses constructor minSup.
+
+
+@pytest.mark.parametrize("minimum", [0, 1, -0.1, 1.5, float("nan"), float("inf"),
+                                     float("-inf"), True, False, "0.2", pd.NA, pd.NaT,
+                                     Fraction(1, 5)])
+def test_query_min_sup_invalid_values(minimum):
+    miner = DSTree(None, 0.2, 2, 2)
+    with pytest.raises(ValueError, match=r"^minSup must be a fraction in \(0, 1\)$"):
+        miner.queryPatterns(minSup=minimum)
+    miner.processBatch([["x"], []])
+    with pytest.raises(ValueError, match=r"^minSup must be a fraction in \(0, 1\)$"):
+        miner.queryPatterns(0, 0, minSup=minimum)
+
+
+def test_query_min_sup_frame_validation_runs_first():
+    miner = DSTree(None, 0.2, 2, 2)
+    miner.processBatch([["a"], []])
+    for start, end in ((-1, 1), (1, 0), (0, 2), (0.5, 1), (False, 1)):
+        with pytest.raises(ValueError, match=r"^frame range must satisfy 0 <= startFrame <= endFrame <= frame count$"):
+            miner.queryPatterns(start, end, minSup="invalid")
+
+
+@pytest.mark.parametrize("minimum,weight,count", [(0.3, 10, 3), (0.07, 100, 7), (1 / 3, 30, 10)])
+def test_query_min_sup_exact_inclusive_boundary(minimum, weight, count):
+    miner = DSTree(None, 0.9, 2, weight)
+    batch = ([["at"]] * count + [["below"]] * (count - 1)
+             + [[] for _ in range(weight - 2 * count + 1)])
+    miner.processBatch(batch)
+    assert miner.queryPatterns() == {}
+    assert count - 1 < Fraction(str(minimum)) * weight <= count
+    assert miner.queryPatterns(minSup=minimum) == {("at",): count}
+
+
+def test_query_min_sup_uses_queried_range_weight():
+    miner = DSTree(None, 0.8, 2, 10)
+    miner.processBatch([["x"]] * 3 + [[] for _ in range(7)])
+    miner.processBatch([["y"]] * 8 + [[] for _ in range(12)])
+    assert miner.queryPatterns(1, 2, minSup=0.3) == {("x",): 3}
+    assert miner.queryPatterns(0, 1, minSup=0.4) == {("y",): 8}
+    assert miner.queryPatterns(minSup=0.3) == {}
+
+
+QUERY_MIN_SUPS = (0.05, 0.1, 0.2, 1 / 3, 0.5, 0.9)
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("window_size", [1, 2, 3, 5])
+def test_query_min_sup_random_stream_oracle(window_size):
+    for seed in range(100):
+        sigma, batches = _random_stream(seed)
+        miner = DSTree(None, sigma, window_size, 20)
+        exact_batches = []
+        for batch_no, batch in enumerate(batches):
+            exact_batches.append(supports([batch], 0, 1))
+            miner.processBatch(batch)
+            frames = miner.getTimeFrames()
+            for start in range(len(frames)):
+                for end in range(start + 1, len(frames) + 1):
+                    first, last = frames[end - 1][0], frames[start][1]
+                    true = Counter()
+                    for exact in exact_batches[first:last]:
+                        true.update(exact)
+                    weight = sum(len(transactions) for transactions in batches[first:last])
+                    for minimum in QUERY_MIN_SUPS:
+                        threshold = Fraction(str(minimum)) * weight
+                        expected = {pattern: count for pattern, count in true.items() if count >= threshold}
+                        actual = miner.queryPatterns(start, end, minSup=minimum)
+                        context = (f"seed={seed}, windowSize={window_size}, batch={batch_no}, "
+                                   f"range=({start}, {end}), minSup={minimum}, W={weight}")
+                        assert actual == expected, context
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("window_size", [1, 2, 3, 5])
+def test_query_min_sup_matches_separate_miners(window_size):
+    for seed in range(100):
+        sigma, batches = _random_stream(seed)
+        miner = DSTree(None, sigma, window_size, 20)
+        separate = {minimum: DSTree(None, minimum, window_size, 20) for minimum in QUERY_MIN_SUPS}
+        for batch_no, batch in enumerate(batches):
+            miner.processBatch(batch)
+            for comparison in separate.values():
+                comparison.processBatch(batch)
+            frame_count = len(miner.getTimeFrames())
+            for start in range(frame_count):
+                for end in range(start + 1, frame_count + 1):
+                    for minimum, comparison in separate.items():
+                        actual = miner.queryPatterns(start, end, minSup=minimum)
+                        expected = comparison.queryPatterns(start, end)
+                        context = (f"seed={seed}, windowSize={window_size}, batch={batch_no}, "
+                                   f"range=({start}, {end}), minSup={minimum}")
+                        assert actual == expected, context

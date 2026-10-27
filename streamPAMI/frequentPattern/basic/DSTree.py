@@ -10,6 +10,7 @@ Fraction(str(minSup)) arithmetic. Frames cover individual batches in the current
 window and are returned newest first, with end-exclusive batch boundaries.
 Mining uses FP-growth over tree paths only when queried; processBatch does not
 mine itemsets. mine stores the result for the whole current window.
+queryPatterns(..., minSup=value) overrides support for that query only.
 
 Correspondence with the paper (Leung & Khan, ICDM 2006, Sec. 3)
 ------------------------------------------------------------
@@ -161,7 +162,7 @@ class DSTree(_streamFrequentPatterns):
         return {item: [(node, node.counts[0]) for node in nodes]
                 for item, nodes in headers.items()}
 
-    def queryPatterns(self, startFrame=0, endFrame=None):
+    def queryPatterns(self, startFrame=0, endFrame=None, minSup=None):
         frame_count = len(self._batches)
         if endFrame is None:
             endFrame = frame_count
@@ -169,11 +170,18 @@ class DSTree(_streamFrequentPatterns):
                 for index in (startFrame, endFrame))
                 or not 0 <= startFrame <= endFrame <= frame_count):
             raise ValueError("frame range must satisfy 0 <= startFrame <= endFrame <= frame count")
+        if minSup is None:
+            minimum = self._min_sup
+        else:
+            if (not isinstance(minSup, (int, float)) or isinstance(minSup, bool)
+                    or not 0 < minSup < 1):
+                raise ValueError("minSup must be a fraction in (0, 1)")
+            minimum = Fraction(str(minSup))
         weight = sum(self.getFrameWeights()[startFrame:endFrame])
         if not weight:
             return {}
         slots = slice(frame_count - endFrame, frame_count - startFrame)
-        threshold = self._min_sup * weight
+        threshold = minimum * weight
         headers = {}
         for node in self._nodes():
             if node is self._root:

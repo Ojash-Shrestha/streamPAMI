@@ -19,14 +19,15 @@ to batches that have already left the window. Frequent queries repeat mining.
 | Name | Type | Meaning | Constraints |
 |---|---|---|---|
 | `iFile` | path, URL string, DataFrame or `None` | Replay input, or live input when `None`. | DataFrame column must be `Transactions`; a missing file raises. |
-| `minSup` | float | Relative support within the queried batch range. | `0 < minSup < 1`; an absolute count is not accepted. |
+| `minSup` | float | Default relative support within the queried batch range. | `0 < minSup < 1`; an absolute count is not accepted. |
 | `windowSize` | int | Maximum number of batches retained. | Integer at least one; booleans are rejected. |
 | `batchSize` | int | Transactions per replay batch. | Integer at least one; booleans are rejected. A final smaller batch counts as one batch. |
 | `sep` | str | Input/output item separator. | Default tab. |
 
 Each direct `processBatch` call adds one batch, which can have any positive
 length. If the window is full, its oldest batch leaves before the new batch is
-inserted. There is no epsilon parameter or minSup query parameter.
+inserted. There is no epsilon parameter. The constructor's minSup is the default
+for queries and is always used by `mine()`.
 
 ## Algorithm-specific methods
 
@@ -34,11 +35,16 @@ inserted. There is no epsilon parameter or minSup query parameter.
 |---|---|
 | `getTimeFrames()` | One `(startBatch, endBatch)` per retained batch, newest first; ends are exclusive and indices refer to the original stream. |
 | `getFrameWeights()` | Each retained batch's transaction count, newest first. |
-| `queryPatterns(startFrame=0, endFrame=None)` | Exact query over frame indices from startFrame inclusive to endFrame exclusive; `None` means the whole remaining window. |
+| `queryPatterns(startFrame=0, endFrame=None, minSup=None)` | Exact query from startFrame inclusive to endFrame exclusive; endFrame=None extends to the oldest retained frame. minSup=None uses the constructor threshold; pass a float in (0, 1) to override it for this query. |
 
 `queryPatterns(0, 1)` queries the latest batch; `queryPatterns()` queries the
 whole current window. The support denominator includes empty transactions in
 the selected batches.
+
+A minSup override uses exact `Fraction(str(minSup))` arithmetic and rejects
+booleans, strings, NaN, infinity and values outside (0, 1). Frame validation runs
+first. The override does not rebuild the tree, change the constructor's minSup,
+replace `getPatterns()`, or update the captured runtime/memory metrics.
 
 ## Example
 
@@ -66,6 +72,28 @@ Newest frame: {('a',): 1, ('a', 'b'): 1, ('b',): 2}
 
 The oldest batch has left the window. Its public batch indices do not restart
 when the window slides.
+
+The same retained window can be queried at different thresholds without
+rebuilding or replaying it:
+
+```python
+import pandas as pd
+from streamPAMI.frequentPattern.basic.DSTree import DSTree
+
+df = pd.DataFrame({"Transactions": [["a", "b"], ["a"], ["b"], [],
+                                  ["a", "b"], ["b"]]})
+miner = DSTree(df, minSup=0.5, windowSize=2, batchSize=2)
+miner.mine()
+for minimum in (0.25, 0.75):
+    print(f"minSup={minimum}:", dict(sorted(miner.queryPatterns(minSup=minimum).items())))
+print("Stored constructor result:", dict(sorted(miner.getPatterns().items())))
+```
+
+```text
+minSup=0.25: {('a',): 1, ('a', 'b'): 1, ('b',): 3}
+minSup=0.75: {('b',): 3}
+Stored constructor result: {('b',): 3}
+```
 
 ## Accuracy guarantees and limitations
 

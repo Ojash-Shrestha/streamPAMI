@@ -132,7 +132,7 @@ LossyCounting batch 2 {('bread',): 6, ('bread', 'milk'): 4, ('milk',): 6}
 |---|---|
 | `mine()` | Replay the input in batches, store the final answer and return the miner. |
 | `processBatch(transactions)` | Add one non-empty list of transactions; empty transactions inside it count. |
-| `queryPatterns(...)` | Query current state; FPStream/DSTree accept a frame range, LossyCounting accepts no arguments. |
+| `queryPatterns(...)` | Query current state; FPStream/DSTree accept a frame range, DSTree also accepts a per-query `minSup` override, and LossyCounting accepts no arguments. |
 | `getPatterns()` | Dictionary stored by the last `mine()`. |
 | `getPatternsAsDataFrame()` | Stored result with columns `Patterns` and `Support`; items are joined with `sep`. |
 | `save(oFile)` | Write the stored result as `item1<sep>item2:support` lines in UTF-8. |
