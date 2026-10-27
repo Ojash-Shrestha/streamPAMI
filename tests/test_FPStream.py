@@ -104,23 +104,13 @@ def test_tracked_patterns_below_batch_threshold_get_exact_counts():
         assert miner._tables[pattern][0] == 1, pattern
 
 
-def test_type_ii_removes_tracked_supersets(monkeypatch):
+def test_type_ii_removes_tracked_supersets():
     miner = FPStream(None, 0.2, 0.05, 100)
     miner.processBatch([["a", "b"] if t < 10 else ["f"] for t in range(100)])
-    superset_table = miner._tables[("a", "b")]
-    visited = []
-    tail_prune = miner._tail_prune
-
-    def record_pruning(table):
-        visited.append(table)
-        tail_prune(table)
-
-    monkeypatch.setattr(miner, "_tail_prune", record_pruning)
     miner.processBatch([["a"]] + [["f"] for _ in range(9999)])
     assert ("a",) not in miner._tables
     assert ("a", "b") not in miner._tables
     assert ("f",) in miner._tables
-    # A removed superset must not survive until its own subsequent scan/pruning.
 
 
 def test_process_batch_defers_final_patterns(monkeypatch):

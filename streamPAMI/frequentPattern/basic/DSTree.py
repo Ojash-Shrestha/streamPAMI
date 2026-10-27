@@ -17,6 +17,8 @@ Correspondence with the paper (Leung & Khan, ICDM 2006, Sec. 3)
   allows any consistent canonical order, including lexicographic or alphabetical,
   and the order never changes with item frequencies. (MATCH)
 * Node counts: every node keeps one count per batch in the window. (MATCH)
+  Each node's count list is ordered OLDEST batch first, even though
+  getTimeFrames(), getFrameWeights() and query frame indices are NEWEST first.
 * Window maintenance: this implementation is an EAGER-MAINTENANCE VARIANT. On
   each slide it drops the oldest batch's count from every node and removes
   all-zero nodes immediately. The paper defers this work with a per-node "last
