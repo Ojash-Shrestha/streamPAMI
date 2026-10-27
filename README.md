@@ -1,3 +1,6 @@
+# streamPAMI
+
+[![Tests](https://github.com/udayRage/streamPAMI/actions/workflows/tests.yml/badge.svg)](https://github.com/udayRage/streamPAMI/actions/workflows/tests.yml)
 [![GitHub license](https://img.shields.io/github/license/udayRage/streamPAMI)](https://github.com/udayRage/streamPAMI/blob/main/LICENSE)
 ![Python](https://img.shields.io/badge/python-%E2%89%A53.9-blue)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
