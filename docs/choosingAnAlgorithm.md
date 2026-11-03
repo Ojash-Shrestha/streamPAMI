@@ -1,6 +1,6 @@
 # Choosing an algorithm
 
-These three frequent-pattern miners accept relative support thresholds and return counts. Their
+The three basic frequent-pattern miners below accept relative support thresholds and return counts. Their
 query horizons and retained state differ. See [getting started](gettingStarted.md)
 for the shared API. The constructor's minSup is the default; DSTree can override
 it for each query without replaying the stream.
@@ -55,6 +55,17 @@ Counts of non-maximal frequent subsets are not returned; use plain DSTree when
 you need those counts. The composition retains DSTree's window and first mines
 all frequent itemsets, so a smaller output does not imply less mining work or
 memory. It inherits frame-range queries and query-time minSup.
+
+[INSTANT](frequentPattern/maximal/INSTANT.md) is Mao et al.'s published
+landmark-stream algorithm. Use it when you want maximal itemsets over the
+whole history with a **fixed integer support count**. It updates the answer
+as transactions arrive; `queryPatterns()` takes no arguments and returns
+`None` for every support, because the exact counts are unknown. It retains
+intermediate antichains, whose memory and processing costs grow with the
+threshold and observed itemsets. See its page for the figure typo fixes and
+the paper's theory caveats, including empirical rather than proved completeness.
+Prefer DSTreeMaximal for a recent window, fractional thresholds, query-time
+minSup changes or exact counts.
 
 ## High-utility patterns
 

@@ -48,15 +48,18 @@ print(dict(sorted(miner.getPatterns().items())))
 ```
 
 
-`minSup` is a **fraction strictly between zero and one**, relative to the
-transactions in the queried horizon. Unlike PAMI, an absolute count is not
-accepted. Pattern keys are sorted tuples of item strings; supports are counts,
-not fractions. Counts are exact for DSTree and estimates for the other miners.
+For FPStream, DSTree, DSTreeMaximal and LossyCounting, `minSup` is a **fraction
+strictly between zero and one**, relative to the transactions in the queried
+horizon; these miners do not accept an absolute count. INSTANT instead requires
+a **fixed integer support count** over the whole history and rejects fractions.
+Pattern keys are sorted tuples of item strings. Supports are counts, not
+fractions: exact for DSTree and DSTreeMaximal, estimates for FPStream and
+LossyCounting. INSTANT does not know exact supports and returns `None` values.
 
 ## Mine once
 
 `mine()` reads the input in batches and stores the final answer. It resets the
-miner's earlier stream state. This self-contained example runs all three miners:
+miner's earlier stream state. This self-contained example runs the three basic miners:
 
 ```python
 import pandas as pd
@@ -89,7 +92,7 @@ requires whole buckets: its batch lengths must be multiples of `ceil(1/epsilon)`
 ## Feed a live stream
 
 Use `iFile=None`, add batches with `processBatch`, and call `queryPatterns()` for
-the current answer. For FPStream and DSTree, direct batches can have different
+the current answer. For FPStream, DSTree, DSTreeMaximal and INSTANT, direct batches can have different
 positive lengths; for LossyCounting each length must be a positive multiple of
 its bucket width. Each call defines one batch, regardless of `batchSize`.
 
@@ -132,10 +135,10 @@ LossyCounting batch 2 {('bread',): 6, ('bread', 'milk'): 4, ('milk',): 6}
 |---|---|
 | `mine()` | Replay the input in batches, store the final answer and return the miner. |
 | `processBatch(transactions)` | Add one non-empty list of transactions; empty transactions inside it count. |
-| `queryPatterns(...)` | Query current state; FPStream/DSTree accept a frame range, DSTree also accepts a per-query `minSup` override, and LossyCounting accepts no arguments. |
+| `queryPatterns(...)` | Query current state; FPStream/DSTree/DSTreeMaximal accept a frame range, DSTree/DSTreeMaximal also accept a per-query `minSup` override, and LossyCounting/INSTANT accept no arguments. |
 | `getPatterns()` | Dictionary stored by the last `mine()`. |
-| `getPatternsAsDataFrame()` | Stored result with columns `Patterns` and `Support`; items are joined with `sep`. |
-| `save(oFile)` | Write the stored result as `item1<sep>item2:support` lines in UTF-8. |
+| `getPatternsAsDataFrame()` | Stored result with columns `Patterns` and `Support`; INSTANT has only `Patterns`. Items are joined with `sep`. |
+| `save(oFile)` | Write the stored result as `item1<sep>item2:support` lines in UTF-8; INSTANT writes patterns only, without `:support`. |
 | `printResults()` | Print stored pattern count and captured runtime/memory metrics. |
 | `getRuntime()` | Seconds captured by the last `mine()` or `processBatch()`. |
 | `getMemoryUSS()` | Captured unique set size in bytes; zero if unavailable. |
@@ -149,4 +152,6 @@ memory readings, not peak-memory measurements.
 
 Continue with [choosing an algorithm](choosingAnAlgorithm.md), or open the
 [FPStream](frequentPattern/basic/FPStream.md), [DSTree](frequentPattern/basic/DSTree.md)
-and [LossyCounting](frequentPattern/basic/LossyCounting.md) pages.
+and [LossyCounting](frequentPattern/basic/LossyCounting.md) pages. For maximal
+itemsets, see [DSTreeMaximal](frequentPattern/maximal/DSTreeMaximal.md) or
+[INSTANT](frequentPattern/maximal/INSTANT.md).

@@ -375,11 +375,16 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
 
 | Basic | Closed | Maximal | Top-k |
 |---|---|---|---|
-| FP-Stream, DSTree, Lossy Counting | | DSTreeMaximal (streamPAMI composition) | |
+| FP-Stream, DSTree, Lossy Counting | | DSTreeMaximal (streamPAMI composition), INSTANT | |
 
 DSTreeMaximal is a **streamPAMI composition, not a published algorithm**: DSTree
 mining followed by streamPAMI's own maximality filter. The Leung and Khan
 reference describes the underlying DSTree.
+
+INSTANT (Mao et al., 2007) maintains maximal frequent itemsets over the whole
+landmark stream with a fixed integer support count. Exact supports are unknown,
+so its output values are `None`; see the [INSTANT documentation](./docs/frequentPattern/maximal/INSTANT.md)
+for the figure typo fixes and notes on the paper's theory.
 
 ### 2. Pattern mining in utility transaction streams
 
@@ -400,6 +405,9 @@ reference describes the underlying DSTree.
   Sets from Data Streams", Proc. IEEE ICDM, 2006, pp. 928-932, doi:10.1109/ICDM.2006.62.
 - G. S. Manku and R. Motwani, "Approximate Frequency Counts over Data Streams",
   Proc. 28th VLDB Conference, Hong Kong, 2002.
+- G. Mao, X. Wu, X. Zhu, G. Chen and C. Liu, "Mining maximal frequent itemsets from
+  data streams", Journal of Information Science 33(3), 251-262, 2007,
+  doi:10.1177/0165551506068179.
 - C. F. Ahmed, S. K. Tanbeer, B.-S. Jeong and H.-J. Choi, "Interactive mining of high
   utility patterns over data streams", Expert Systems with Applications 39(15),
   11979-11991, 2012, doi:10.1016/j.eswa.2012.03.062.

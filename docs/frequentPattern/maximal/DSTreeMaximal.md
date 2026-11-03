@@ -120,5 +120,6 @@ a streamPAMI composition, not a published algorithm.
 ## Tutorial
 
 The offline example above is the tutorial for this composition; no separate
-notebook is added. INSTANT (Mao et al., 2007), a published landmark-window
-algorithm, is planned. It is not implemented by DSTreeMaximal.
+notebook is added. [INSTANT](INSTANT.md) (Mao et al., 2007) is a separate published
+landmark-window algorithm with a fixed integer support count and unknown exact
+supports. It is not implemented by DSTreeMaximal.

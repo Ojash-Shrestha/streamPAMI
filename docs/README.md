@@ -10,11 +10,12 @@ with the documented accuracy limits.
 - [FPStream](frequentPattern/basic/FPStream.md): approximate tilted-time history.
 - [DSTree](frequentPattern/basic/DSTree.md): exact sliding batch window.
 - [DSTreeMaximal](frequentPattern/maximal/DSTreeMaximal.md): streamPAMI composition, not a published algorithm; exact maximal itemsets over DSTree's sliding window.
+- [INSTANT](frequentPattern/maximal/INSTANT.md): maximal itemsets over a landmark stream with a fixed support count; exact supports are unknown.
 - [LossyCounting](frequentPattern/basic/LossyCounting.md): approximate landmark counts.
 - [HUPMS](highUtilityPattern/basic/HUPMS.md): exact high-utility patterns in a sliding window, using positive per-item utilities.
 
 The basic frequent-pattern pages link to executed notebooks and Colab tutorials.
-HUPMS and the DSTreeMaximal composition have offline example tutorials on their
-pages. Start with the small offline examples, then use a frequency notebook to
+HUPMS, INSTANT and the DSTreeMaximal composition have offline example tutorials
+on their pages. Start with the small offline examples, then use a frequency notebook to
 explore the dataset.
 See the [project README](../README.md) for accuracy guarantees, evaluation and references.
