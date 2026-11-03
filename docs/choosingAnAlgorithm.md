@@ -1,6 +1,6 @@
 # Choosing an algorithm
 
-All three miners accept relative support thresholds and return counts. Their
+These three frequent-pattern miners accept relative support thresholds and return counts. Their
 query horizons and retained state differ. See [getting started](gettingStarted.md)
 for the shared API. The constructor's minSup is the default; DSTree can override
 it for each query without replaying the stream.
@@ -42,3 +42,16 @@ implementation, not necessarily the original paper's design. See [DSTree](freque
   Do not use it for a sliding horizon or frame-range queries.
 
 See [LossyCounting](frequentPattern/basic/LossyCounting.md).
+
+## High-utility patterns
+
+Frequency measures how often an itemset occurs; utility measures the sum of its
+items' positive utilities in containing transactions. Use [HUPMS](highUtilityPattern/basic/HUPMS.md)
+for exact utility results over the last `windowSize` batches or a contiguous
+range within them. Supply item-to-utility dictionaries or utility-format input,
+and use `minUtil`, a fraction of the queried range's total transaction utility.
+
+HUPMS supports a different minUtil per query without replay. It retains window
+transactions as well as its HUS-tree, and mines candidates afresh on each query.
+Choose it when those utility totals matter, rather than a frequency count;
+negative utilities and batches outside the retained window are not supported.

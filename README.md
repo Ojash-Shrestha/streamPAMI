@@ -377,6 +377,14 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
 |---|---|---|---|
 | FP-Stream, DSTree, Lossy Counting | | | |
 
+### 2. Pattern mining in utility transaction streams
+
+#### 2.1. High-utility pattern mining
+
+| Basic | Closed | Maximal | Top-k |
+|---|---|---|---|
+| HUPMS | | | |
+
 ***
 
 # References
@@ -388,5 +396,8 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
   Sets from Data Streams", Proc. IEEE ICDM, 2006, pp. 928-932, doi:10.1109/ICDM.2006.62.
 - G. S. Manku and R. Motwani, "Approximate Frequency Counts over Data Streams",
   Proc. 28th VLDB Conference, Hong Kong, 2002.
+- C. F. Ahmed, S. K. Tanbeer, B.-S. Jeong and H.-J. Choi, "Interactive mining of high
+  utility patterns over data streams", Expert Systems with Applications 39(15),
+  11979-11991, 2012, doi:10.1016/j.eswa.2012.03.062.
 
 [Go to Top](#table-of-contents)
