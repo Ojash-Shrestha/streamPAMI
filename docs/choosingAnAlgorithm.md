@@ -43,6 +43,19 @@ implementation, not necessarily the original paper's design. See [DSTree](freque
 
 See [LossyCounting](frequentPattern/basic/LossyCounting.md).
 
+## Maximal frequent itemsets
+
+[DSTreeMaximal](frequentPattern/maximal/DSTreeMaximal.md) is a **streamPAMI
+composition, not a published algorithm**: DSTree's exact frequent itemsets are
+followed by streamPAMI's own maximality filter. The maximal step is not
+attributed to Leung and Khan, whose paper describes the underlying DSTree.
+
+Use maximal itemsets for a compact summary with no frequent proper supersets.
+Counts of non-maximal frequent subsets are not returned; use plain DSTree when
+you need those counts. The composition retains DSTree's window and first mines
+all frequent itemsets, so a smaller output does not imply less mining work or
+memory. It inherits frame-range queries and query-time minSup.
+
 ## High-utility patterns
 
 Frequency measures how often an itemset occurs; utility measures the sum of its

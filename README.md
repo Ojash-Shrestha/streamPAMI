@@ -375,7 +375,11 @@ Contributions are welcome: bug reports, fixes, documentation and new algorithms.
 
 | Basic | Closed | Maximal | Top-k |
 |---|---|---|---|
-| FP-Stream, DSTree, Lossy Counting | | | |
+| FP-Stream, DSTree, Lossy Counting | | DSTreeMaximal (streamPAMI composition) | |
+
+DSTreeMaximal is a **streamPAMI composition, not a published algorithm**: DSTree
+mining followed by streamPAMI's own maximality filter. The Leung and Khan
+reference describes the underlying DSTree.
 
 ### 2. Pattern mining in utility transaction streams
 
