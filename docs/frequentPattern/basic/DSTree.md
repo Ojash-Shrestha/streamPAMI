@@ -123,4 +123,4 @@ Sets from Data Streams", Proc. IEEE ICDM, 2006, pp. 928-932, doi:10.1109/ICDM.20
 
 [Executed notebook](../../../notebooks/frequentPattern/basic/DSTree.ipynb)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/DSTree.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/UdayLab/streamPAMI/blob/main/notebooks/frequentPattern/basic/DSTree.ipynb)

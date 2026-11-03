@@ -5,13 +5,13 @@
 streamPAMI is not on PyPI. Install it from GitHub in your Python environment:
 
 ```shell
-pip install git+https://github.com/udayRage/streamPAMI
+pip install git+https://github.com/UdayLab/streamPAMI
 ```
 
 For development:
 
 ```shell
-git clone https://github.com/udayRage/streamPAMI
+git clone https://github.com/UdayLab/streamPAMI
 cd streamPAMI
 pip install -e ".[dev]"
 ```

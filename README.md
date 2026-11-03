@@ -1,7 +1,7 @@
 # streamPAMI
 
-[![Tests](https://github.com/udayRage/streamPAMI/actions/workflows/tests.yml/badge.svg)](https://github.com/udayRage/streamPAMI/actions/workflows/tests.yml)
-[![GitHub license](https://img.shields.io/github/license/udayRage/streamPAMI)](https://github.com/udayRage/streamPAMI/blob/main/LICENSE)
+[![Tests](https://github.com/UdayLab/streamPAMI/actions/workflows/tests.yml/badge.svg)](https://github.com/UdayLab/streamPAMI/actions/workflows/tests.yml)
+[![GitHub license](https://img.shields.io/github/license/UdayLab/streamPAMI)](https://github.com/UdayLab/streamPAMI/blob/main/LICENSE)
 ![Python](https://img.shields.io/badge/python-%E2%89%A53.9-blue)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 
@@ -57,9 +57,9 @@ examples for replaying a dataset and feeding live batches.
 
 | Algorithm | Docs page | Notebook | Colab |
 |---|---|---|---|
-| FPStream | [Documentation](./docs/frequentPattern/basic/FPStream.md) | [Tutorial](./notebooks/frequentPattern/basic/FPStream.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/FPStream.ipynb) |
-| DSTree | [Documentation](./docs/frequentPattern/basic/DSTree.md) | [Tutorial](./notebooks/frequentPattern/basic/DSTree.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/DSTree.ipynb) |
-| LossyCounting | [Documentation](./docs/frequentPattern/basic/LossyCounting.md) | [Tutorial](./notebooks/frequentPattern/basic/LossyCounting.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/LossyCounting.ipynb) |
+| FPStream | [Documentation](./docs/frequentPattern/basic/FPStream.md) | [Tutorial](./notebooks/frequentPattern/basic/FPStream.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/UdayLab/streamPAMI/blob/main/notebooks/frequentPattern/basic/FPStream.ipynb) |
+| DSTree | [Documentation](./docs/frequentPattern/basic/DSTree.md) | [Tutorial](./notebooks/frequentPattern/basic/DSTree.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/UdayLab/streamPAMI/blob/main/notebooks/frequentPattern/basic/DSTree.ipynb) |
+| LossyCounting | [Documentation](./docs/frequentPattern/basic/LossyCounting.md) | [Tutorial](./notebooks/frequentPattern/basic/LossyCounting.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/UdayLab/streamPAMI/blob/main/notebooks/frequentPattern/basic/LossyCounting.ipynb) |
 
 ***
 
@@ -237,17 +237,17 @@ __Installation__
 
 streamPAMI is not on PyPI yet. Install it from GitHub:
 
-    pip install git+https://github.com/udayRage/streamPAMI.git
+    pip install git+https://github.com/UdayLab/streamPAMI.git
 
 For development (includes pytest):
 
-    git clone https://github.com/udayRage/streamPAMI.git
+    git clone https://github.com/UdayLab/streamPAMI.git
     cd streamPAMI
     pip install -e ".[dev]"
 
 __Upgradation__
 
-    pip install --upgrade git+https://github.com/udayRage/streamPAMI.git
+    pip install --upgrade git+https://github.com/UdayLab/streamPAMI.git
 
 __Uninstallation__
 
@@ -337,7 +337,7 @@ silently forgotten or silently "fixed".
 
 # License
 
-[![GitHub license](https://img.shields.io/github/license/udayRage/streamPAMI)](https://github.com/udayRage/streamPAMI/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/UdayLab/streamPAMI)](https://github.com/UdayLab/streamPAMI/blob/main/LICENSE)
 
 streamPAMI is released under the GNU General Public License v3.0.
 
@@ -353,7 +353,7 @@ as the stream mining companion to PAMI.
 
 # Getting Help
 
-Please open an issue at [GitHub Issues](https://github.com/udayRage/streamPAMI/issues).
+Please open an issue at [GitHub Issues](https://github.com/UdayLab/streamPAMI/issues).
 
 ***
 

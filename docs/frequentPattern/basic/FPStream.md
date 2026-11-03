@@ -91,4 +91,4 @@ Streams at Multiple Time Granularities", *Next Generation Data Mining*, 2003.
 
 [Executed notebook](../../../notebooks/frequentPattern/basic/FPStream.ipynb)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/FPStream.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/UdayLab/streamPAMI/blob/main/notebooks/frequentPattern/basic/FPStream.ipynb)

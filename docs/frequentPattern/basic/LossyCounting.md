@@ -121,4 +121,4 @@ Proc. 28th VLDB Conference, Hong Kong, 2002.
 
 [Executed notebook](../../../notebooks/frequentPattern/basic/LossyCounting.ipynb)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/udayRage/streamPAMI/blob/main/notebooks/frequentPattern/basic/LossyCounting.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/UdayLab/streamPAMI/blob/main/notebooks/frequentPattern/basic/LossyCounting.ipynb)
